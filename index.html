@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioInted S.A.S. — Ingeniería que protege. Cumplimiento que libera.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════════════ */
+:root {
+  --azul:        #134B8E;
+  --azul-oscuro: #1C2B3A;
+  --azul-medio:  #1a3a6b;
+  --verde:       #28B463;
+  --verde-suave: rgba(40,180,99,0.08);
+  --blanco:      #FFFFFF;
+  --hielo:       #F0F4F8;
+  --hielo-2:     #E8EFF6;
+  --texto:       #1a2332;
+  --texto-suave: #4a5568;
+  --texto-claro: #8898aa;
+  --borde:       rgba(19,75,142,0.08);
+  --sidebar-w:   60px;
+  --sidebar-exp: 228px;
+  --topbar-h:    38px;
+  --nav-h:       62px;
+  --transition:  0.32s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--texto);
+  background: var(--blanco);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════
+   TOP BAR ROTATIVO
+═══════════════════════════════════════════ */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: var(--topbar-h);
+  background: var(--azul-oscuro);
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+.tb-track {
+  display: flex; align-items: center;
+  gap: 4rem;
+  animation: tbScroll 22s linear infinite;
+  white-space: nowrap;
+  padding-left: 100%;
+}
+.tb-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.75rem; color: rgba(255,255,255,0.75);
+  flex-shrink: 0;
+}
+.tb-item b { color: var(--verde); font-weight: 600; }
+.tb-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--verde); flex-shrink: 0; }
+@keyframes tbScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+#topbar:hover .tb-track { animation-play-state: paused; }
+
+/* ═══════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════ */
+#sidebar {
+  position: fixed;
+  top: var(--topbar-h); left: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--blanco);
+  border-right: 1px solid var(--borde);
+  z-index: 200;
+  display: flex; flex-direction: column;
+  transition: width var(--transition), box-shadow var(--transition);
+  overflow: hidden;
+}
+#sidebar:hover, #sidebar.open {
+  width: var(--sidebar-exp);
+  box-shadow: 4px 0 32px rgba(19,75,142,0.08);
+}
+
+.sb-logo {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 1.1rem 0 1.1rem 1rem;
+  border-bottom: 1px solid var(--borde);
+  text-decoration: none; min-height: 66px; overflow: hidden;
+  flex-shrink: 0;
+}
+.sb-logo-img {
+  width: 34px; height: 34px; flex-shrink: 0;
+  object-fit: contain;
+}
+.sb-logo-placeholder {
+  width: 34px; height: 34px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--azul), var(--verde));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 600; color: white;
+}
+.sb-logo-text {
+  display: flex; flex-direction: column;
+  opacity: 0; transition: opacity 0.18s 0.06s;
+  white-space: nowrap;
+}
+.sb-logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 600;
+  color: var(--azul); letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+.sb-logo-name span { color: var(--verde); }
+.sb-logo-sub {
+  font-size: 0.6rem; color: var(--texto-claro);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px;
+}
+#sidebar:hover .sb-logo-text, #sidebar.open .sb-logo-text { opacity: 1; }
+
+.sb-nav { flex: 1; display: flex; flex-direction: column; padding: 0.75rem 0; overflow: hidden; }
+
+.sb-item {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.72rem 0 0.72rem 1.1rem;
+  text-decoration: none; position: relative;
+  transition: background 0.2s; cursor: pointer;
+  border-radius: 0 10px 10px 0; margin-right: 0.5rem;
+}
+.sb-item:hover { background: var(--hielo); }
+.sb-item.active { background: rgba(19,75,142,0.06); }
+.sb-item.active::before {
+  content: ''; position: absolute; left: 0; top: 22%; bottom: 22%;
+  width: 2.5px; background: var(--verde);
+  border-radius: 0 2px 2px 0;
+}
+.sb-icon {
+  width: 26px; flex-shrink: 0; text-align: center;
+  font-size: 1rem; transition: transform 0.2s;
+}
+.sb-item:hover .sb-icon, .sb-item.active .sb-icon { transform: scale(1.1); }
+.sb-label {
+  font-size: 0.82rem; font-weight: 500;
+  color: var(--texto-suave); white-space: nowrap;
+  opacity: 0; transition: opacity 0.18s 0.06s;
+}
+.sb-item.active .sb-label { color: var(--azul); font-weight: 600; }
+#sidebar:hover .sb-label, #sidebar.open .sb-label { opacity: 1; }
+
+.sb-tooltip {
+  position: absolute; left: calc(var(--sidebar-w) + 10px);
+  background: var(--azul-oscuro); color: white;
+  font-size: 0.72rem; font-weight: 500;
+  padding: 0.3rem 0.65rem; border-radius: 6px;
+  white-space: nowrap; pointer-events: none;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15); z-index: 300;
+}
+#sidebar:not(:hover):not(.open) .sb-item:hover .sb-tooltip { opacity: 1; transform: translateX(0); }
+
+.sb-footer {
+  padding: 0.9rem 0 0.9rem 1.1rem;
+  border-top: 1px solid var(--borde);
+  display: flex; align-items: center; gap: 0.85rem; overflow: hidden;
+}
+.sb-footer-icon { font-size: 0.85rem; width: 26px; text-align: center; flex-shrink: 0; color: var(--texto-claro); }
+.sb-footer-text {
+  font-size: 0.68rem; color: var(--texto-claro);
+  white-space: nowrap; line-height: 1.5;
+  opacity: 0; transition: opacity 0.18s;
+}
+#sidebar:hover .sb-footer-text, #sidebar.open .sb-footer-text { opacity: 1; }
+
+/* Toggle móvil */
+#sb-toggle {
+  display: none; position: fixed;
+  top: calc(var(--topbar-h) + 0.9rem); left: 0.9rem;
+  z-index: 300; width: 38px; height: 38px;
+  background: var(--azul); border: none; border-radius: 9px;
+  cursor: pointer; flex-direction: column;
+  align-items: center; justify-content: center; gap: 4px;
+  box-shadow: 0 4px 16px rgba(19,75,142,0.25);
+}
+#sb-toggle span { width: 18px; height: 1.5px; background: white; border-radius: 2px; display: block; }
+#sb-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.25); z-index: 190;
+  backdrop-filter: blur(2px);
+}
+
+/* ═══════════════════════════════════════════
+   MAIN LAYOUT
+═══════════════════════════════════════════ */
+#main {
+  margin-top: var(--topbar-h);
+  margin-left: var(--sidebar-w);
+  transition: margin-left var(--transition);
+}
+
+/* TOP NAV */
+#topnav {
+  position: fixed;
+  top: var(--topbar-h); left: var(--sidebar-w); right: 0;
+  z-index: 100; height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--borde);
+  transition: left var(--transition), box-shadow 0.3s;
+}
+#topnav.scrolled { box-shadow: 0 4px 24px rgba(19,75,142,0.07); }
+
+#sec-indicator {
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--verde); text-transform: uppercase;
+  letter-spacing: 0.1em; opacity: 0;
+  transition: opacity 0.3s;
+}
+#sec-indicator.on { opacity: 1; }
+
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-phone {
+  font-size: 0.8rem; color: var(--texto-suave);
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.nav-phone span { color: var(--azul); font-weight: 500; }
+.nav-cta {
+  background: var(--azul); color: white;
+  padding: 0.5rem 1.3rem; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(19,75,142,0.2);
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--azul-medio); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(19,75,142,0.3); }
+
+/* ═══════════════════════════════════════════
+   SECCIONES — ESPACIADO BASE
+═══════════════════════════════════════════ */
+section {
+  padding: 5.5rem 3.5rem;
+  scroll-margin-top: calc(var(--topbar-h) + var(--nav-h));
+}
+section.alt   { background: var(--hielo); }
+section.dark  { background: var(--azul-oscuro); }
+section.white { background: var(--blanco); }
+
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.sec-eyebrow-line { width: 28px; height: 1.5px; background: var(--verde); }
+.sec-eyebrow-text {
+  font-size: 0.7rem; font-weight: 700; color: var(--verde);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.sec-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--azul);
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.sec-title b { font-weight: 600; }
+.sec-title.light { color: white; }
+.sec-body {
+  font-size: 0.95rem; color: var(--texto-suave);
+  line-height: 1.8; max-width: 580px;
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero {
+  min-height: calc(100vh - var(--topbar-h) - var(--nav-h));
+  padding: calc(var(--topbar-h) + var(--nav-h) + 2rem) 3.5rem 3rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  background: var(--blanco);
+  position: relative; overflow: hidden;
+}
+
+.hero-bg-pattern {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(19,75,142,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(40,180,99,0.03) 0%, transparent 40%);
+}
+.hero-grid-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(19,75,142,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19,75,142,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.hero-left { position: relative; z-index: 2; }
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.1s both;
+}
+.hero-eyebrow-line { width: 32px; height: 1.5px; background: var(--verde); }
+.hero-eyebrow-text {
+  font-size: 0.72rem; font-weight: 700; color: var(--verde);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--azul); letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.8s 0.2s both;
+}
+.hero-title b { font-weight: 600; display: block; }
+.hero-title em { font-style: italic; color: var(--verde); font-weight: 300; }
+
+.hero-sub {
+  font-size: 1rem; font-weight: 300;
+  color: var(--texto-suave); line-height: 1.8;
+  max-width: 460px; margin-bottom: 2.5rem;
+  animation: fadeUp 0.8s 0.3s both;
+}
+
+.hero-actions {
+  display: flex; align-items: center; gap: 1.25rem;
+  flex-wrap: wrap; margin-bottom: 3rem;
+  animation: fadeUp 0.8s 0.4s both;
+}
+.btn-primary {
+  background: var(--azul); color: white;
+  padding: 0.8rem 2rem; border-radius: 50px;
+  font-size: 0.88rem; font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 4px 20px rgba(19,75,142,0.2);
+}
+.btn-primary:hover { background: var(--azul-medio); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(19,75,142,0.3); }
+.btn-ghost {
+  color: var(--azul); font-size: 0.88rem; font-weight: 500;
+  text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+  transition: gap 0.2s;
+}
+.btn-ghost:hover { gap: 0.7rem; }
+.btn-ghost-arrow { color: var(--verde); font-size: 1rem; }
+
+.hero-stats {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.5s both;
+  padding-top: 2rem;
+  border-top: 1px solid var(--borde);
+}
+.stat { display: flex; flex-direction: column; gap: 0.2rem; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem; font-weight: 600;
+  color: var(--azul); line-height: 1;
+}
+.stat-num span { color: var(--verde); font-size: 1.4rem; }
+.stat-lbl { font-size: 0.72rem; color: var(--texto-claro); font-weight: 400; line-height: 1.4; }
+
+.hero-right {
+  position: relative; z-index: 2;
+  animation: fadeRight 0.9s 0.3s both;
+}
+.hero-img-wrap {
+  position: relative; border-radius: 16px; overflow: hidden;
+  background: var(--hielo);
+  aspect-ratio: 4/5;
+}
+.hero-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+}
+.hero-img-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--hielo-2) 0%, var(--hielo) 50%, #dce8f5 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.75rem; color: var(--texto-claro);
+  font-size: 0.8rem; text-align: center; padding: 2rem;
+}
+.hero-img-placeholder-icon { font-size: 2.5rem; opacity: 0.4; }
+
+.hero-card {
+  position: absolute; bottom: -1.5rem; left: -1.5rem;
+  background: var(--blanco); border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 16px 48px rgba(19,75,142,0.12);
+  border: 1px solid var(--borde);
+  max-width: 200px;
+}
+.hero-card-label {
+  font-size: 0.65rem; font-weight: 700; color: var(--verde);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem;
+}
+.hero-card-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600; color: var(--azul);
+  line-height: 1; margin-bottom: 0.2rem;
+}
+.hero-card-sub { font-size: 0.7rem; color: var(--texto-claro); line-height: 1.4; }
+
+.hero-badge {
+  position: absolute; top: 1.5rem; right: -1rem;
+  background: var(--azul); color: white;
+  border-radius: 50px; padding: 0.5rem 1rem;
+  font-size: 0.7rem; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(19,75,142,0.25);
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--verde); border-radius: 50%; }
+
+/* ═══════════════════════════════════════════
+   ¿PARA QUIÉN?
+═══════════════════════════════════════════ */
+#quien { background: var(--hielo); }
+
+.quien-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1.25rem; margin-top: 2.5rem;
+}
+.quien-card {
+  background: var(--blanco); border-radius: 14px;
+  overflow: hidden; border: 1px solid var(--borde);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.quien-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(19,75,142,0.1); border-color: rgba(19,75,142,0.15); }
+.quien-img {
+  height: 120px; display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; position: relative;
+}
+.quien-img.od  { background: linear-gradient(135deg, #E8F0FA, #d4e4f7); }
+.quien-img.est { background: linear-gradient(135deg, #edfaf3, #cef0df); }
+.quien-img.spa { background: linear-gradient(135deg, #f5f0ff, #ede0f8); }
+.quien-img.con { background: linear-gradient(135deg, #fff8e8, #f5edcc); }
+.quien-body { padding: 1.2rem; }
+.quien-body h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 600; color: var(--azul); margin-bottom: 0.35rem;
+}
+.quien-body p { font-size: 0.8rem; color: var(--texto-suave); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════
+   CREDIBILIDAD
+═══════════════════════════════════════════ */
+#credibilidad {
+  background: var(--blanco);
+  padding: 2.5rem 3.5rem;
+  border-top: 1px solid var(--borde);
+  border-bottom: 1px solid var(--borde);
+}
+.cred-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0; text-align: center;
+}
+.cred-item {
+  padding: 1.5rem;
+  border-right: 1px solid var(--borde);
+}
+.cred-item:last-child { border-right: none; }
+.cred-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 600; color: var(--azul);
+  line-height: 1; margin-bottom: 0.4rem;
+}
+.cred-num span { color: var(--verde); }
+.cred-lbl { font-size: 0.75rem; color: var(--texto-claro); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════
+   SERVICIOS
+═══════════════════════════════════════════ */
+#servicios { background: var(--hielo); }
+
+.srv-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+}
+.srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+.srv-card {
+  background: var(--blanco); border-radius: 16px;
+  padding: 2.2rem; border: 1px solid var(--borde);
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.srv-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--azul), var(--verde));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.srv-card:hover { transform: translateY(-5px); box-shadow: 0 20px 52px rgba(19,75,142,0.1); border-color: rgba(19,75,142,0.12); }
+.srv-card:hover::before { transform: scaleX(1); }
+
+.srv-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem; font-weight: 600; color: rgba(19,75,142,0.05);
+  line-height: 1; margin-bottom: 1rem; letter-spacing: -3px;
+}
+.srv-ico {
+  width: 48px; height: 48px;
+  background: var(--hielo); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 1.2rem;
+  border: 1px solid var(--borde);
+}
+.srv-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 600; color: var(--azul);
+  margin-bottom: 0.25rem; line-height: 1.2;
+}
+.srv-sub {
+  font-size: 0.68rem; font-weight: 700; color: var(--verde);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.9rem;
+}
+.srv-card p { font-size: 0.85rem; color: var(--texto-suave); line-height: 1.7; margin-bottom: 1.2rem; }
+.srv-divider { width: 32px; height: 1.5px; background: var(--borde); margin-bottom: 1rem; }
+.srv-items { display: flex; flex-direction: column; gap: 0.5rem; }
+.srv-item {
+  font-size: 0.8rem; color: var(--texto-suave);
+  display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5;
+}
+.srv-item::before { content: '—'; color: var(--verde); font-weight: 600; flex-shrink: 0; font-size: 0.85rem; }
+.srv-hta {
+  margin-top: 1rem; padding: 0.9rem 1rem;
+  background: var(--hielo); border-radius: 10px;
+  border: 1px solid var(--borde); font-size: 0.78rem;
+  color: var(--azul); font-weight: 500; line-height: 1.5;
+}
+.srv-hta strong { color: var(--verde); }
+
+/* ═══════════════════════════════════════════
+   PRODUCTOS ESTRELLA
+═══════════════════════════════════════════ */
+#productos { background: var(--azul-oscuro); }
+
+#productos .sec-eyebrow-line { background: var(--verde); }
+#productos .sec-eyebrow-text { color: var(--verde); }
+
+.prod-intro { max-width: 600px; margin-bottom: 3.5rem; }
+.prod-intro .sec-title { color: white; }
+.prod-tagline {
+  font-size: 0.9rem; color: rgba(255,255,255,0.5);
+  font-style: italic; margin-top: 0.75rem;
+}
+
+.prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.prod-card {
+  border-radius: 18px; padding: 2.5rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.03);
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, background 0.3s;
+}
+.prod-card:hover { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); }
+.prod-card.featured { border-color: rgba(40,180,99,0.25); background: rgba(40,180,99,0.04); }
+.prod-card.featured:hover { border-color: rgba(40,180,99,0.4); background: rgba(40,180,99,0.07); }
+
+.prod-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.prod-card.featured::before { background: linear-gradient(90deg, var(--verde), rgba(40,180,99,0.2)); }
+.prod-card:not(.featured)::before { background: linear-gradient(90deg, var(--azul), rgba(19,75,142,0.2)); }
+
+.prod-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7);
+  font-size: 0.65rem; font-weight: 700; padding: 0.3rem 0.75rem;
+  border-radius: 20px; margin-bottom: 1.2rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.prod-card.featured .prod-badge { background: rgba(40,180,99,0.12); color: var(--verde); border-color: rgba(40,180,99,0.2); }
+
+.prod-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; color: white;
+  line-height: 1.15; margin-bottom: 0.3rem; letter-spacing: -0.02em;
+}
+.prod-card h3 b { font-weight: 600; }
+.prod-card h4 { font-size: 0.78rem; color: rgba(255,255,255,0.35); font-weight: 300; margin-bottom: 1.5rem; }
+
+.prod-includes { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.75rem; }
+.prod-inc {
+  font-size: 0.83rem; color: rgba(255,255,255,0.65);
+  display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5;
+}
+.prod-check { color: var(--verde); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+.prod-price { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.5rem; }
+.prod-price-old { font-size: 0.9rem; color: rgba(255,255,255,0.2); text-decoration: line-through; }
+.prod-price-new {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem; font-weight: 600; color: white; line-height: 1;
+}
+.prod-price-note { font-size: 0.72rem; color: rgba(255,255,255,0.3); }
+
+.prod-delivery { font-size: 0.78rem; color: var(--verde); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.4rem; }
+
+.prod-tiers { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.75rem; }
+.prod-tier {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255,255,255,0.04); border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.prod-tier-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+.prod-tier-price { font-size: 0.9rem; font-weight: 600; color: white; display: flex; align-items: center; gap: 0.5rem; }
+.prod-tier-price s { font-size: 0.75rem; color: rgba(255,255,255,0.2); font-weight: 300; }
+
+.prod-btn {
+  display: block; width: 100%; padding: 0.85rem;
+  border-radius: 50px; text-align: center;
+  font-size: 0.85rem; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  transition: all 0.25s; border: none;
+}
+.prod-card.featured .prod-btn { background: var(--verde); color: white; box-shadow: 0 4px 20px rgba(40,180,99,0.25); }
+.prod-card.featured .prod-btn:hover { background: #22a057; transform: translateY(-2px); }
+.prod-card:not(.featured) .prod-btn { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.1); }
+.prod-card:not(.featured) .prod-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+
+/* ═══════════════════════════════════════════
+   BLOG — ACTUALIDAD CLÍNICA
+═══════════════════════════════════════════ */
+#blog { background: var(--blanco); }
+
+.blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+.blog-ver-mas { font-size: 0.82rem; color: var(--azul); font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
+.blog-ver-mas:hover { gap: 0.7rem; color: var(--verde); }
+
+.blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+.blog-card {
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--borde);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(19,75,142,0.1); }
+.blog-img {
+  height: 160px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 1rem;
+}
+.blog-img.od   { background: linear-gradient(135deg, #0d2a4a 0%, #134B8E 100%); }
+.blog-img.est  { background: linear-gradient(135deg, #0d3320 0%, #1a7a50 100%); }
+.blog-img.norm { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d5e 100%); }
+.blog-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.blog-cat {
+  position: relative; z-index: 2;
+  background: rgba(255,255,255,0.12); color: white;
+  font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.65rem;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em;
+  backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
+}
+.blog-body { padding: 1.3rem; background: var(--blanco); }
+.blog-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 600; color: var(--azul);
+  line-height: 1.35; margin-bottom: 0.75rem;
+}
+.blog-link {
+  font-size: 0.78rem; color: var(--verde); font-weight: 600;
+  display: flex; align-items: center; gap: 0.35rem;
+  text-decoration: none; transition: gap 0.2s;
+}
+.blog-link:hover { gap: 0.6rem; }
+
+/* ═══════════════════════════════════════════
+   RECURSOS PDF
+═══════════════════════════════════════════ */
+#recursos { background: var(--hielo); }
+
+.pdf-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+
+.pdf-card {
+  background: var(--blanco); border-radius: 14px;
+  padding: 1.75rem; border: 1px solid var(--borde);
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  transition: transform 0.25s, box-shadow 0.25s;
+  text-decoration: none;
+}
+.pdf-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(19,75,142,0.08); border-color: rgba(19,75,142,0.14); }
+
+.pdf-thumb {
+  width: 52px; height: 64px; flex-shrink: 0;
+  background: var(--hielo); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--borde); position: relative; overflow: hidden;
+}
+.pdf-thumb::after {
+  content: 'PDF'; position: absolute; bottom: 6px;
+  font-size: 0.55rem; font-weight: 700; color: var(--verde);
+  letter-spacing: 0.08em;
+}
+.pdf-thumb-icon { font-size: 1.4rem; margin-bottom: 10px; }
+
+.pdf-info h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 600; color: var(--azul);
+  margin-bottom: 0.4rem; line-height: 1.3;
+}
+.pdf-info p { font-size: 0.78rem; color: var(--texto-claro); margin-bottom: 0.85rem; line-height: 1.5; }
+.pdf-dl {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(40,180,99,0.08); color: var(--verde);
+  font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.75rem;
+  border-radius: 20px; border: 1px solid rgba(40,180,99,0.18);
+  transition: background 0.2s;
+}
+.pdf-card:hover .pdf-dl { background: rgba(40,180,99,0.14); }
+
+/* ═══════════════════════════════════════════
+   CONTACTO
+═══════════════════════════════════════════ */
+#contacto { background: var(--blanco); }
+
+.cnt-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; }
+
+.cnt-left { padding-top: 0.5rem; }
+.cnt-slogan {
+  margin-top: 2rem; padding: 1.5rem;
+  background: var(--hielo); border-radius: 14px;
+  border-left: 3px solid var(--verde);
+}
+.cnt-slogan p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-style: italic; color: var(--azul);
+  line-height: 1.6;
+}
+.cnt-slogan span { display: block; font-size: 0.7rem; font-style: normal; font-weight: 600; color: var(--verde); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; }
+
+.cnt-info { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 2rem; }
+.cnt-item {
+  display: flex; gap: 1rem; align-items: center;
+  padding: 1rem 1.25rem; background: var(--hielo);
+  border-radius: 12px; border: 1px solid var(--borde);
+  transition: border-color 0.2s;
+}
+.cnt-item:hover { border-color: rgba(19,75,142,0.15); }
+.cnt-ico {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: white; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; border: 1px solid var(--borde);
+}
+.cnt-item h4 { font-size: 0.75rem; font-weight: 700; color: var(--azul); margin-bottom: 0.15rem; }
+.cnt-item p, .cnt-item a { font-size: 0.85rem; color: var(--texto-suave); text-decoration: none; }
+.cnt-item a:hover { color: var(--verde); }
+
+.cnt-form {
+  background: var(--blanco); border-radius: 18px;
+  padding: 2.5rem; border: 1px solid var(--borde);
+  box-shadow: 0 8px 48px rgba(19,75,142,0.07);
+}
+.cnt-form h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 600; color: var(--azul);
+  margin-bottom: 1.75rem;
+}
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.f-grp { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+.f-grp label { font-size: 0.72rem; font-weight: 600; color: var(--azul); text-transform: uppercase; letter-spacing: 0.06em; }
+.f-grp input, .f-grp select, .f-grp textarea {
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--borde); border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  color: var(--texto); background: var(--hielo);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+}
+.f-grp input:focus, .f-grp select:focus, .f-grp textarea:focus {
+  border-color: var(--verde); box-shadow: 0 0 0 3px rgba(40,180,99,0.1);
+  background: white;
+}
+.f-grp textarea { resize: vertical; min-height: 100px; }
+.f-submit {
+  width: 100%; padding: 0.9rem;
+  background: var(--azul); color: white;
+  border: none; border-radius: 50px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 600;
+  cursor: pointer; transition: all 0.25s;
+  box-shadow: 0 4px 20px rgba(19,75,142,0.2);
+  letter-spacing: 0.02em;
+}
+.f-submit:hover { background: var(--azul-medio); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(19,75,142,0.3); }
+#f-status {
+  display: none; margin-top: 1rem;
+  font-size: 0.85rem; text-align: center;
+  padding: 0.75rem; border-radius: 10px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: var(--azul-oscuro); color: white;
+  padding: 3.5rem 3.5rem 2rem;
+}
+.ft-top {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 3rem; padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ft-brand { display: flex; flex-direction: column; gap: 1rem; }
+.ft-logo { display: flex; align-items: center; gap: 0.75rem; }
+.ft-logo-img { width: 36px; height: 36px; object-fit: contain; }
+.ft-logo-placeholder {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--azul), var(--verde));
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: white;
+}
+.ft-logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 600; color: white; letter-spacing: 0.02em;
+}
+.ft-logo-text span { color: var(--verde); }
+.ft-desc { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 280px; }
+.ft-slogan {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 0.9rem;
+  color: rgba(255,255,255,0.25); letter-spacing: 0.04em;
+}
+
+.ft-col h5 {
+  font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.2rem;
+}
+.ft-links { display: flex; flex-direction: column; gap: 0.65rem; }
+.ft-links a {
+  font-size: 0.83rem; color: rgba(255,255,255,0.5);
+  text-decoration: none; transition: color 0.2s;
+}
+.ft-links a:hover { color: var(--verde); }
+
+.ft-bot {
+  padding-top: 2rem; display: flex;
+  justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+  font-size: 0.72rem; color: rgba(255,255,255,0.25);
+}
+
+/* ═══════════════════════════════════════════
+   WHATSAPP FLOTANTE
+═══════════════════════════════════════════ */
+#wap {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+  width: 54px; height: 54px;
+  background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+#wap:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+#wap-pulse {
+  position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.35);
+  animation: wapPulse 2s ease-in-out infinite;
+}
+@keyframes wapPulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.2);opacity:0;} }
+
+/* ═══════════════════════════════════════════
+   ANIMACIONES
+═══════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 960px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar { transform: translateX(-100%); width: var(--sidebar-exp); transition: transform var(--transition), box-shadow var(--transition); }
+  #sidebar.open { transform: translateX(0); box-shadow: 8px 0 32px rgba(0,0,0,0.12); }
+  #sb-toggle { display: flex; }
+  #sb-overlay.on { display: block; }
+  #main { margin-left: 0; }
+  #topnav { left: 0; padding-left: 4rem; }
+  #hero { grid-template-columns: 1fr; gap: 2rem; padding-top: calc(var(--topbar-h) + var(--nav-h) + 2rem); }
+  .hero-right { display: none; }
+  section { padding: 3.5rem 1.5rem; }
+  #credibilidad { padding: 1.5rem; }
+  .cred-grid { grid-template-columns: repeat(2,1fr); }
+  .cred-item { border-right: none; border-bottom: 1px solid var(--borde); }
+  .cred-item:nth-child(odd) { border-right: 1px solid var(--borde); }
+  .quien-grid { grid-template-columns: repeat(2,1fr); }
+  .srv-grid { grid-template-columns: 1fr; }
+  .prod-grid { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .pdf-grid { grid-template-columns: 1fr; }
+  .cnt-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .ft-top { grid-template-columns: 1fr; gap: 2rem; }
+  .nav-phone { display: none; }
+  .f-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="tb-track">
+    <div class="tb-item"><div class="tb-dot"></div> 2026 es un año de locura — <b>y nos enloquecimos con los precios</b></div>
+    <div class="tb-item"><div class="tb-dot"></div> <b>Pack de Blindaje Técnico</b> — desde $475.000 IVA incluido</div>
+    <div class="tb-item"><div class="tb-dot"></div> <b>HTA Consultivo</b> — Health Technology Assessment desde $350.000</div>
+    <div class="tb-item"><div class="tb-dot"></div> Precios especiales durante todo el año 2026 📞 <b>317 140 9069</b></div>
+    <!-- Duplicado para loop continuo -->
+    <div class="tb-item"><div class="tb-dot"></div> 2026 es un año de locura — <b>y nos enloquecimos con los precios</b></div>
+    <div class="tb-item"><div class="tb-dot"></div> <b>Pack de Blindaje Técnico</b> — desde $475.000 IVA incluido</div>
+    <div class="tb-item"><div class="tb-dot"></div> <b>HTA Consultivo</b> — Health Technology Assessment desde $350.000</div>
+    <div class="tb-item"><div class="tb-dot"></div> Precios especiales durante todo el año 2026 📞 <b>317 140 9069</b></div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <a href="#hero" class="sb-logo" onclick="closeSB()">
+    <img src="assets/img/logo.png" class="sb-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="BioInted">
+    <div class="sb-logo-placeholder" style="display:none;">B</div>
+    <div class="sb-logo-text">
+      <div class="sb-logo-name">Bio<span>Inted</span></div>
+      <div class="sb-logo-sub">Medical Intellect Technology</div>
+    </div>
+  </a>
+  <nav class="sb-nav">
+    <a class="sb-item active" href="#hero" data-sec="hero" onclick="closeSB()">
+      <span class="sb-icon">🏠</span><span class="sb-label">Inicio</span>
+      <span class="sb-tooltip">Inicio</span>
+    </a>
+    <a class="sb-item" href="#quien" data-sec="quien" onclick="closeSB()">
+      <span class="sb-icon">🎯</span><span class="sb-label">¿Para quién?</span>
+      <span class="sb-tooltip">¿Para quién?</span>
+    </a>
+    <a class="sb-item" href="#servicios" data-sec="servicios" onclick="closeSB()">
+      <span class="sb-icon">⚕️</span><span class="sb-label">Servicios</span>
+      <span class="sb-tooltip">Servicios</span>
+    </a>
+    <a class="sb-item" href="#productos" data-sec="productos" onclick="closeSB()">
+      <span class="sb-icon">⭐</span><span class="sb-label">Productos Estrella</span>
+      <span class="sb-tooltip">Productos Estrella</span>
+    </a>
+    <a class="sb-item" href="#blog" data-sec="blog" onclick="closeSB()">
+      <span class="sb-icon">📰</span><span class="sb-label">Actualidad Clínica</span>
+      <span class="sb-tooltip">Actualidad Clínica</span>
+    </a>
+    <a class="sb-item" href="#recursos" data-sec="recursos" onclick="closeSB()">
+      <span class="sb-icon">📄</span><span class="sb-label">Recursos</span>
+      <span class="sb-tooltip">Recursos PDF</span>
+    </a>
+    <a class="sb-item" href="#contacto" data-sec="contacto" onclick="closeSB()">
+      <span class="sb-icon">✉️</span><span class="sb-label">Contacto</span>
+      <span class="sb-tooltip">Contacto</span>
+    </a>
+  </nav>
+  <div class="sb-footer">
+    <span class="sb-footer-icon">📍</span>
+    <div class="sb-footer-text">Sabana de Bogotá<br>Cundinamarca · Colombia</div>
+  </div>
+</aside>
+
+<div id="sb-overlay" onclick="closeSB()"></div>
+<button id="sb-toggle" onclick="toggleSB()"><span></span><span></span><span></span></button>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- TOP NAV -->
+  <nav id="topnav">
+    <span id="sec-indicator"></span>
+    <div class="nav-right">
+      <div class="nav-phone">📞 <span>317 140 9069</span></div>
+      <a href="#contacto" class="nav-cta">Agendar reunión</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">Ingeniería Biomédica · Colombia</div>
+      </div>
+      <h1 class="hero-title">
+        Ingeniería que protege.
+        <b>Cumplimiento <em>que libera.</em></b>
+      </h1>
+      <p class="hero-sub">Consultoría especializada en habilitación normativa, ingeniería clínica y dotación para espacios de salud especializada en la Sabana de Bogotá.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">Agendar reunión de asesoría</a>
+        <a href="#servicios" class="btn-ghost">Ver servicios <span class="btn-ghost-arrow">→</span></a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-lbl">Unidades de negocio especializadas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3.5<span>d</span></div>
+          <div class="stat-lbl">Entrega Pack de Blindaje</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-lbl">Cobertura Res. 3100 de 2019</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <img src="assets/img/hero.jpg" alt="BioInted — Ingeniería Biomédica"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="hero-img-placeholder" style="display:none;">
+          <div class="hero-img-placeholder-icon">🩺</div>
+          <div>Coloca aquí tu foto hero<br><small>assets/img/hero.jpg</small></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-label">Registro activo</div>
+        <div class="hero-card-value">INVIMA</div>
+        <div class="hero-card-sub">Documentos técnicos con validez legal garantizada</div>
+      </div>
+      <div class="hero-badge">El aliado que te protege</div>
+    </div>
+  </section>
+
+  <!-- ¿PARA QUIÉN? -->
+  <section id="quien" class="alt">
+    <div class="sec-eyebrow reveal">
+      <div class="sec-eyebrow-line"></div>
+      <div class="sec-eyebrow-text">¿Para quién es BioInted?</div>
+    </div>
+    <h2 class="sec-title reveal">Espacios de salud <b>especializada.</b></h2>
+    <div class="quien-grid">
+      <div class="quien-card reveal">
+        <div class="quien-img od">🦷</div>
+        <div class="quien-body">
+          <h4>Odontología</h4>
+          <p>Consultorios y clínicas odontológicas especializadas que requieren habilitación, equipos certificados y soporte técnico continuo.</p>
+        </div>
+      </div>
+      <div class="quien-card reveal d1">
+        <div class="quien-img est">💉</div>
+        <div class="quien-body">
+          <h4>Medicina Estética</h4>
+          <p>Clínicas y consultorios de estética médica que operan equipos de mediana complejidad bajo normativa de salud.</p>
+        </div>
+      </div>
+      <div class="quien-card reveal d2">
+        <div class="quien-img spa">🌿</div>
+        <div class="quien-body">
+          <h4>Spas</h4>
+          <p>Centros de bienestar con equipos de baja complejidad que necesitan insumos certificados y respaldo técnico.</p>
+        </div>
+      </div>
+      <div class="quien-card reveal d3">
+        <div class="quien-img con">🏥</div>
+        <div class="quien-body">
+          <h4>Consultorios Independientes</h4>
+          <p>Médicos especialistas que operan de forma independiente y requieren blindaje normativo y soporte en tecnología.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDIBILIDAD -->
+  <div id="credibilidad">
+    <div class="cred-grid">
+      <div class="cred-item reveal">
+        <div class="cred-num">+20<span></span></div>
+        <div class="cred-lbl">Instituciones acompañadas en la Sabana de Bogotá</div>
+      </div>
+      <div class="cred-item reveal d1">
+        <div class="cred-num">3.5<span>d</span></div>
+        <div class="cred-lbl">Tiempo de entrega promedio del Pack de Blindaje</div>
+      </div>
+      <div class="cred-item reveal d2">
+        <div class="cred-num">100<span>%</span></div>
+        <div class="cred-lbl">Cobertura de la Resolución 3100 de 2019</div>
+      </div>
+      <div class="cred-item reveal d3">
+        <div class="cred-num"><span>✓</span></div>
+        <div class="cred-lbl">Registro INVIMA activo · Firmas con validez legal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="alt">
+    <div class="srv-header">
+      <div>
+        <div class="sec-eyebrow reveal">
+          <div class="sec-eyebrow-line"></div>
+          <div class="sec-eyebrow-text">Nuestros servicios</div>
+        </div>
+        <h2 class="sec-title reveal">Tres unidades. <b>Una sola protección.</b></h2>
+      </div>
+      <p class="sec-body reveal" style="max-width:340px;">Cada unidad está diseñada para resolver un problema específico y crítico de los espacios de salud especializada en Colombia.</p>
+    </div>
+    <div class="srv-grid">
+
+      <div class="srv-card reveal">
+        <div class="srv-num">01</div>
+        <div class="srv-ico">🛡️</div>
+        <h3>Gestión Normativa</h3>
+        <div class="srv-sub">Blindaje y Cumplimiento</div>
+        <p>Eje estratégico que asegura la viabilidad jurídica y operativa de los prestadores de salud ante las Secretarías de Salud e INVIMA, bajo el marco de la Resolución 3100 de 2019.</p>
+        <div class="srv-divider"></div>
+        <div class="srv-items">
+          <div class="srv-item">Gestión documental integral y archivos técnicos</div>
+          <div class="srv-item">Auditorías preventivas y estandarización de procesos</div>
+          <div class="srv-item">Estructuración del estándar de dotación</div>
+          <div class="srv-item">Preparación para visitas de Secretarías de Salud</div>
+        </div>
+      </div>
+
+      <div class="srv-card reveal d1">
+        <div class="srv-num">02</div>
+        <div class="srv-ico">⚕️</div>
+        <h3>Ingeniería Clínica</h3>
+        <div class="srv-sub">Mantenimiento y Gestión Técnica</div>
+        <p>Unidad operativa que garantiza la seguridad y disponibilidad de la tecnología médica a través de una gestión de ingeniería de alta precisión y respaldo profesional firmado.</p>
+        <div class="srv-divider"></div>
+        <div class="srv-items">
+          <div class="srv-item">Mantenimiento preventivo y correctivo de equipos biomédicos</div>
+          <div class="srv-item">Elaboración y custodia de Hojas de Vida Técnicas</div>
+          <div class="srv-item">Acompañamiento en gestión metrológica y tercerización</div>
+        </div>
+        <div class="srv-hta">
+          <strong>HTA Consultivo</strong> — Health Technology Assessment: asesoría experta en adquisición tecnológica. Comparamos 3 a 5 opciones del mercado y te presentamos la mejor decisión técnica. <strong>Tú decides con criterio, no con publicidad.</strong>
+        </div>
+      </div>
+
+      <div class="srv-card reveal d2">
+        <div class="srv-num">03</div>
+        <div class="srv-ico">🏗️</div>
+        <h3>Infraestructura y Suministros</h3>
+        <div class="srv-sub">Dotación y Soluciones Integrales</div>
+        <p>Unidad dedicada al equipamiento y sostenimiento de espacios de salud, garantizando que cada insumo y equipo cumpla con los estándares de bioseguridad con respaldo de ingeniería.</p>
+        <div class="srv-divider"></div>
+        <div class="srv-items">
+          <div class="srv-item">Suministro de equipos biomédicos de última generación</div>
+          <div class="srv-item">Mobiliario clínico especializado certificado</div>
+          <div class="srv-item">Insumos de alta calidad con registro sanitario</div>
+          <div class="srv-item">Catálogo disponible en WhatsApp Business</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRODUCTOS ESTRELLA -->
+  <section id="productos" class="dark">
+    <div class="prod-intro reveal">
+      <div class="sec-eyebrow">
+        <div class="sec-eyebrow-line"></div>
+        <div class="sec-eyebrow-text">Productos Estrella</div>
+      </div>
+      <h2 class="sec-title light">2026 es un año de locura.<br><b>Y nos enloquecimos con los precios.</b></h2>
+      <p class="prod-tagline">Precios especiales durante todo el año 2026 — IVA incluido en todos los servicios.</p>
+    </div>
+
+    <div class="prod-grid">
+
+      <div class="prod-card featured reveal">
+        <div class="prod-badge">⭐ Pack de Blindaje Técnico</div>
+        <h3>Tranquilidad y respaldo<br><b>en tiempo récord.</b></h3>
+        <h4>Auditoría completa + documentación lista en 3.5 días</h4>
+        <div class="prod-includes">
+          <div class="prod-inc"><span class="prod-check">✓</span> Auditoría completa con acta firmada por ingeniero biomédico</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> 5 Hojas de Vida Técnicas + Cronograma de mantenimiento 2026</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> 50% de descuento en elaboración de documentos normativos</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> 25% de descuento en servicios de mantenimiento</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> IVA y transporte incluidos · Sin costos ocultos</div>
+        </div>
+        <div class="prod-price">
+          <span class="prod-price-old">$750.000</span>
+          <span class="prod-price-new">$475.000</span>
+        </div>
+        <div class="prod-delivery">⚡ Entrega en tan solo 3.5 días hábiles</div>
+        <a href="https://wa.me/573171409069?text=Hola%20BioInted%2C%20quiero%20programar%20una%20auditor%C3%ADa%20con%20el%20Pack%20de%20Blindaje%20T%C3%A9cnico" target="_blank" class="prod-btn">Programar auditoría →</a>
+      </div>
+
+      <div class="prod-card reveal d1">
+        <div class="prod-badge">🔬 HTA Consultivo</div>
+        <h3>Health Technology<br><b>Assessment.</b></h3>
+        <h4>Evaluación de Tecnología en Salud — asesoría experta en adquisición de equipos biomédicos</h4>
+        <div class="prod-includes">
+          <div class="prod-inc"><span class="prod-check">✓</span> Levantamiento de necesidades reales y expectativas técnicas</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> Búsqueda y comparación de 3 a 5 cotizaciones del mercado</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> Análisis técnico de fichas y especificaciones</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> Verificación de registros sanitarios y garantías</div>
+          <div class="prod-inc"><span class="prod-check">✓</span> Acompañamiento completo en la decisión final</div>
+        </div>
+        <div class="prod-tiers">
+          <div class="prod-tier">
+            <span class="prod-tier-label">Equipos básicos · menos de $3M</span>
+            <span class="prod-tier-price"><s>$600.000</s> $350.000</span>
+          </div>
+          <div class="prod-tier">
+            <span class="prod-tier-label">Equipos medios · $3M a $10M</span>
+            <span class="prod-tier-price"><s>$900.000</s> $550.000</span>
+          </div>
+          <div class="prod-tier">
+            <span class="prod-tier-label">Equipos complejos · más de $10M</span>
+            <span class="prod-tier-price">Cotización personalizada</span>
+          </div>
+        </div>
+        <a href="https://wa.me/573171409069?text=Hola%20BioInted%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20HTA%20Consultivo" target="_blank" class="prod-btn">Solicitar asesoría HTA →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACTUALIDAD CLÍNICA -->
+  <section id="blog" class="white">
+    <div class="blog-header">
+      <div>
+        <div class="sec-eyebrow reveal">
+          <div class="sec-eyebrow-line"></div>
+          <div class="sec-eyebrow-text">Actualidad Clínica</div>
+        </div>
+        <h2 class="sec-title reveal">Artículos del mes.</h2>
+      </div>
+      <a href="https://blog.biointed.com" target="_blank" class="blog-ver-mas">Ver todos los artículos →</a>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-img od">
+          <img src="assets/img/blog-odonto.jpg" alt="Odontología" onerror="this.style.display='none'">
+          <span class="blog-cat">Odontología</span>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">Nuevos estándares de esterilización para consultorios odontológicos 2025</div>
+          <a href="https://blog.biointed.com" target="_blank" class="blog-link">Leer artículo →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal d1">
+        <div class="blog-img est">
+          <img src="assets/img/blog-estetica.jpg" alt="Estética" onerror="this.style.display='none'">
+          <span class="blog-cat">Medicina Estética</span>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">Equipos obligatorios para habilitar un centro de medicina estética en Colombia</div>
+          <a href="https://blog.biointed.com" target="_blank" class="blog-link">Leer artículo →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal d2">
+        <div class="blog-img norm">
+          <img src="assets/img/blog-normativa.jpg" alt="Normativa" onerror="this.style.display='none'">
+          <span class="blog-cat">Normativa</span>
+        </div>
+        <div class="blog-body">
+          <div class="blog-title">10 errores más frecuentes en visitas de la Secretaría de Salud</div>
+          <a href="https://blog.biointed.com" target="_blank" class="blog-link">Leer artículo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS PDF -->
+  <section id="recursos" class="alt">
+    <div class="sec-eyebrow reveal">
+      <div class="sec-eyebrow-line"></div>
+      <div class="sec-eyebrow-text">Recursos Gratuitos</div>
+    </div>
+    <h2 class="sec-title reveal">Guías especializadas <b>para tu institución.</b></h2>
+    <div class="pdf-grid">
+      <a href="assets/pdf/checklist-odontologia.pdf" download class="pdf-card reveal">
+        <div class="pdf-thumb">
+          <div class="pdf-thumb-icon">📋</div>
+        </div>
+        <div class="pdf-info">
+          <h4>Checklist de habilitación para consultorios odontológicos</h4>
+          <p>Resolución 3100 de 2019 · Secretaría de Salud · Colombia</p>
+          <div class="pdf-dl">↓ Descargar gratis</div>
+        </div>
+      </a>
+      <a href="assets/pdf/bioseguridad-estetica.pdf" download class="pdf-card reveal d1">
+        <div class="pdf-thumb">
+          <div class="pdf-thumb-icon">📋</div>
+        </div>
+        <div class="pdf-info">
+          <h4>Requisitos de bioseguridad para centros de estética médica</h4>
+          <p>Guía técnica actualizada · Colombia 2025</p>
+          <div class="pdf-dl">↓ Descargar gratis</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="white">
+    <div class="cnt-grid">
+      <div class="cnt-left reveal">
+        <div class="sec-eyebrow">
+          <div class="sec-eyebrow-line"></div>
+          <div class="sec-eyebrow-text">Contáctanos</div>
+        </div>
+        <h2 class="sec-title">¿Listo para proteger <b>tu institución?</b></h2>
+        <div class="cnt-slogan">
+          <p>"El aliado que te protege — ingeniería biomédica al servicio de tu práctica médica."</p>
+          <span>BioInted S.A.S. · Sabana de Bogotá</span>
+        </div>
+        <div class="cnt-info">
+          <div class="cnt-item">
+            <div class="cnt-ico">📍</div>
+            <div><h4>Ubicación</h4><p>Sabana de Bogotá, Cundinamarca — Colombia</p></div>
+          </div>
+          <div class="cnt-item">
+            <div class="cnt-ico">✉️</div>
+            <div><h4>Correo electrónico</h4><a href="mailto:comercial@biointed.com">comercial@biointed.com</a></div>
+          </div>
+          <div class="cnt-item">
+            <div class="cnt-ico">📱</div>
+            <div><h4>WhatsApp</h4><a href="https://wa.me/573171409069" target="_blank">317 140 9069</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cnt-form reveal d1">
+        <h3>Agendar reunión de asesoría</h3>
+        <form id="contact-form" action="https://formspree.io/f/xlgaoqvr" method="POST">
+          <div class="f-row">
+            <div class="f-grp"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
+            <div class="f-grp"><label>Institución</label><input type="text" name="institucion" placeholder="Nombre de tu institución" required></div>
+          </div>
+          <div class="f-row">
+            <div class="f-grp"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+57 300 000 0000"></div>
+            <div class="f-grp"><label>Correo</label><input type="email" name="email" placeholder="correo@ejemplo.com" required></div>
+          </div>
+          <div class="f-grp">
+            <label>Servicio de interés</label>
+            <select name="servicio" required>
+              <option value="">Selecciona un servicio...</option>
+              <option>Gestión Normativa — Blindaje y Cumplimiento</option>
+              <option>Ingeniería Clínica — Mantenimiento y Gestión Técnica</option>
+              <option>Infraestructura y Suministros — Dotación Integral</option>
+              <option>Pack de Blindaje Técnico</option>
+              <option>HTA Consultivo — Health Technology Assessment</option>
+              <option>Diagnóstico integral de mi institución</option>
+            </select>
+          </div>
+          <div class="f-grp">
+            <label>Mensaje</label>
+            <textarea name="mensaje" placeholder="Cuéntanos sobre tu institución y necesidades..."></textarea>
+          </div>
+          <button type="submit" class="f-submit" id="f-btn">Enviar solicitud</button>
+          <p id="f-status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="ft-logo">
+          <img src="assets/img/logo.png" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="BioInted">
+          <div class="ft-logo-placeholder" style="display:none;">B</div>
+          <div>
+            <div class="ft-logo-text">Bio<span>Inted</span> S.A.S.</div>
+          </div>
+        </div>
+        <p class="ft-desc">Consultoría especializada en ingeniería biomédica, habilitación normativa y dotación para espacios de salud especializada en Colombia.</p>
+        <div class="ft-slogan">"El aliado que te protege."</div>
+      </div>
+      <div class="ft-col">
+        <h5>Servicios</h5>
+        <div class="ft-links">
+          <a href="#servicios">Gestión Normativa</a>
+          <a href="#servicios">Ingeniería Clínica</a>
+          <a href="#servicios">Infraestructura y Suministros</a>
+          <a href="#productos">Pack de Blindaje Técnico</a>
+          <a href="#productos">HTA Consultivo</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h5>Empresa</h5>
+        <div class="ft-links">
+          <a href="#quien">¿Para quién?</a>
+          <a href="#blog">Actualidad Clínica</a>
+          <a href="#recursos">Recursos PDF</a>
+          <a href="#contacto">Agendar reunión</a>
+          <a href="https://blog.biointed.com" target="_blank">Blog</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span>© 2025 BioInted S.A.S. — Todos los derechos reservados.</span>
+      <span>Sabana de Bogotá · Cundinamarca · Colombia</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- WHATSAPP FLOTANTE -->
+<a id="wap" href="https://wa.me/573171409069?text=Hola%20BioInted%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" title="Escríbenos por WhatsApp">
+  <div id="wap-pulse"></div>
+  💬
+</a>
+
+<script>
+  // Sidebar
+  function toggleSB() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sb-overlay').classList.toggle('on');
+  }
+  function closeSB() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sb-overlay').classList.remove('on');
+  }
+
+  // Navbar scroll
+  const topnav = document.getElementById('topnav');
+  window.addEventListener('scroll', () => topnav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+  // Active section
+  const SECS   = ['hero','quien','servicios','productos','blog','recursos','contacto'];
+  const LABELS = { hero:'Inicio', quien:'¿Para quién?', servicios:'Servicios', productos:'Productos Estrella', blog:'Actualidad Clínica', recursos:'Recursos', contacto:'Contacto' };
+  const ind    = document.getElementById('sec-indicator');
+
+  function updateActive() {
+    let cur = 'hero';
+    SECS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 140) cur = id;
+    });
+    document.querySelectorAll('.sb-item').forEach(el => el.classList.toggle('active', el.dataset.sec === cur));
+    if (cur !== 'hero') { ind.textContent = '— ' + LABELS[cur]; ind.classList.add('on'); }
+    else ind.classList.remove('on');
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+
+  // Reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Formspree
+  const form   = document.getElementById('contact-form');
+  const btn    = document.getElementById('f-btn');
+  const status = document.getElementById('f-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        status.style.display = 'block';
+        status.style.cssText = 'display:block;margin-top:1rem;font-size:0.85rem;text-align:center;padding:0.75rem;border-radius:10px;background:rgba(40,180,99,0.08);color:#28B463;border:1px solid rgba(40,180,99,0.2);';
+        status.textContent = '✓ Solicitud enviada. Te contactaremos pronto.';
+        form.reset();
+        btn.textContent = 'Enviado ✓';
+      } else { throw new Error(); }
+    } catch {
+      status.style.cssText = 'display:block;margin-top:1rem;font-size:0.85rem;text-align:center;padding:0.75rem;border-radius:10px;background:rgba(220,53,69,0.06);color:#dc3545;border:1px solid rgba(220,53,69,0.15);';
+      status.textContent = '✗ Error al enviar. Escríbenos directamente a comercial@biointed.com';
+      btn.textContent = 'Enviar solicitud';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
