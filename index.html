@@ -97,8 +97,9 @@ body {
 }
 .sb-logo-img {
   width: 34px; height: 34px; flex-shrink: 0;
-  object-fit: contain;
+  object-fit: contain; min-width: 34px;
 }
+.sb-logo-text { max-width: 148px; overflow: hidden; }
 .sb-logo-placeholder {
   width: 34px; height: 34px; flex-shrink: 0;
   background: linear-gradient(135deg, var(--azul), var(--verde));
@@ -120,8 +121,9 @@ body {
 }
 .sb-logo-name span { color: var(--verde); }
 .sb-logo-sub {
-  font-size: 0.6rem; color: var(--texto-claro);
-  text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px;
+  font-size: 0.55rem; color: var(--texto-claro);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 #sidebar:hover .sb-logo-text, #sidebar.open .sb-logo-text { opacity: 1; }
 
@@ -505,7 +507,7 @@ section.white { background: var(--blanco); }
 
 .srv-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 4rem; font-weight: 600; color: rgba(19,75,142,0.05);
+  font-size: 4rem; font-weight: 600; color: rgba(19,75,142,0.18);
   line-height: 1; margin-bottom: 1rem; letter-spacing: -3px;
 }
 .srv-ico {
@@ -514,7 +516,9 @@ section.white { background: var(--blanco); }
   display: flex; align-items: center; justify-content: center;
   font-size: 1.4rem; margin-bottom: 1.2rem;
   border: 1px solid var(--borde);
+  overflow: hidden;
 }
+.srv-ico img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 .srv-card h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.25rem; font-weight: 600; color: var(--azul);
@@ -1016,7 +1020,7 @@ footer {
         Ingeniería que protege.
         <b>Cumplimiento <em>que libera.</em></b>
       </h1>
-      <p class="hero-sub">Consultoría especializada en habilitación normativa, ingeniería clínica y dotación para espacios de salud especializada en la Sabana de Bogotá.</p>
+      <p class="hero-sub">Consultoría especializada en gestión normativa, ingeniería clínica y dotación para espacios de salud especializada en Cundinamarca.</p>
       <div class="hero-actions">
         <a href="#contacto" class="btn-primary">Agendar reunión de asesoría</a>
         <a href="#servicios" class="btn-ghost">Ver servicios <span class="btn-ghost-arrow">→</span></a>
@@ -1031,8 +1035,8 @@ footer {
           <div class="stat-lbl">Entrega Pack de Blindaje</div>
         </div>
         <div class="stat">
-          <div class="stat-num">100<span>%</span></div>
-          <div class="stat-lbl">Cobertura Res. 3100 de 2019</div>
+          <div class="stat-num"><span>✓</span></div>
+          <div class="stat-lbl">Registro INVIMA activo</div>
         </div>
       </div>
     </div>
@@ -1064,57 +1068,44 @@ footer {
     <h2 class="sec-title reveal">Espacios de salud <b>especializada.</b></h2>
     <div class="quien-grid">
       <div class="quien-card reveal">
-        <div class="quien-img od">🦷</div>
+        <div class="quien-img od">
+          <img src="assets/img/quien-odonto.jpg" alt="Odontología" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+        </div>
         <div class="quien-body">
           <h4>Odontología</h4>
-          <p>Consultorios y clínicas odontológicas especializadas que requieren habilitación, equipos certificados y soporte técnico continuo.</p>
+          <p>Consultorios y clínicas odontológicas especializadas que requieren equipos certificados, gestión normativa y soporte técnico continuo.</p>
         </div>
       </div>
       <div class="quien-card reveal d1">
-        <div class="quien-img est">💉</div>
+        <div class="quien-img est">
+          <img src="assets/img/quien-estetica.jpg" alt="Medicina Estética" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+        </div>
         <div class="quien-body">
           <h4>Medicina Estética</h4>
           <p>Clínicas y consultorios de estética médica que operan equipos de mediana complejidad bajo normativa de salud.</p>
         </div>
       </div>
       <div class="quien-card reveal d2">
-        <div class="quien-img spa">🌿</div>
+        <div class="quien-img spa">
+          <img src="assets/img/quien-spa.jpg" alt="Spas" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+        </div>
         <div class="quien-body">
           <h4>Spas</h4>
-          <p>Centros de bienestar con equipos de baja complejidad que necesitan insumos certificados y respaldo técnico.</p>
+          <p>Centros de bienestar con equipos de baja complejidad que necesitan insumos certificados y respaldo técnico especializado.</p>
         </div>
       </div>
       <div class="quien-card reveal d3">
-        <div class="quien-img con">🏥</div>
+        <div class="quien-img con">
+          <img src="assets/img/quien-consultorio.jpg" alt="Consultorios" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+        </div>
         <div class="quien-body">
           <h4>Consultorios Independientes</h4>
-          <p>Médicos especialistas que operan de forma independiente y requieren blindaje normativo y soporte en tecnología.</p>
+          <p>Médicos especialistas que operan de forma independiente y requieren blindaje normativo y soporte en tecnología biomédica.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CREDIBILIDAD -->
-  <div id="credibilidad">
-    <div class="cred-grid">
-      <div class="cred-item reveal">
-        <div class="cred-num">+20<span></span></div>
-        <div class="cred-lbl">Instituciones acompañadas en la Sabana de Bogotá</div>
-      </div>
-      <div class="cred-item reveal d1">
-        <div class="cred-num">3.5<span>d</span></div>
-        <div class="cred-lbl">Tiempo de entrega promedio del Pack de Blindaje</div>
-      </div>
-      <div class="cred-item reveal d2">
-        <div class="cred-num">100<span>%</span></div>
-        <div class="cred-lbl">Cobertura de la Resolución 3100 de 2019</div>
-      </div>
-      <div class="cred-item reveal d3">
-        <div class="cred-num"><span>✓</span></div>
-        <div class="cred-lbl">Registro INVIMA activo · Firmas con validez legal</div>
-      </div>
-    </div>
-  </div>
 
   <!-- SERVICIOS -->
   <section id="servicios" class="alt">
@@ -1132,7 +1123,9 @@ footer {
 
       <div class="srv-card reveal">
         <div class="srv-num">01</div>
-        <div class="srv-ico">🛡️</div>
+        <div class="srv-ico">
+          <img src="assets/img/srv-normativa.jpg" alt="Gestión Normativa" onerror="this.outerHTML='<div class=\'srv-ico\' style=\'background:var(--hielo);border:1px solid var(--borde);border-radius:12px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;\'>🛡️</div>'">
+        </div>
         <h3>Gestión Normativa</h3>
         <div class="srv-sub">Blindaje y Cumplimiento</div>
         <p>Eje estratégico que asegura la viabilidad jurídica y operativa de los prestadores de salud ante las Secretarías de Salud e INVIMA, bajo el marco de la Resolución 3100 de 2019.</p>
@@ -1147,7 +1140,9 @@ footer {
 
       <div class="srv-card reveal d1">
         <div class="srv-num">02</div>
-        <div class="srv-ico">⚕️</div>
+        <div class="srv-ico">
+          <img src="assets/img/srv-ingenieria.jpg" alt="Ingeniería Clínica" onerror="this.outerHTML='<div class=\'srv-ico\' style=\'background:var(--hielo);border:1px solid var(--borde);border-radius:12px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;\'>⚕️</div>'">
+        </div>
         <h3>Ingeniería Clínica</h3>
         <div class="srv-sub">Mantenimiento y Gestión Técnica</div>
         <p>Unidad operativa que garantiza la seguridad y disponibilidad de la tecnología médica a través de una gestión de ingeniería de alta precisión y respaldo profesional firmado.</p>
@@ -1164,7 +1159,9 @@ footer {
 
       <div class="srv-card reveal d2">
         <div class="srv-num">03</div>
-        <div class="srv-ico">🏗️</div>
+        <div class="srv-ico">
+          <img src="assets/img/srv-suministros.jpg" alt="Suministros" onerror="this.outerHTML='<div class=\'srv-ico\' style=\'background:var(--hielo);border:1px solid var(--borde);border-radius:12px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;\'>🏗️</div>'">
+        </div>
         <h3>Infraestructura y Suministros</h3>
         <div class="srv-sub">Dotación y Soluciones Integrales</div>
         <p>Unidad dedicada al equipamiento y sostenimiento de espacios de salud, garantizando que cada insumo y equipo cumpla con los estándares de bioseguridad con respaldo de ingeniería.</p>
@@ -1225,15 +1222,15 @@ footer {
         </div>
         <div class="prod-tiers">
           <div class="prod-tier">
-            <span class="prod-tier-label">Equipos básicos </span>
+            <span class="prod-tier-label">Equipos básicos</span>
             <span class="prod-tier-price"><s>$600.000</s> $350.000</span>
           </div>
           <div class="prod-tier">
-            <span class="prod-tier-label">Equipos medios </span>
+            <span class="prod-tier-label">Equipos medios</span>
             <span class="prod-tier-price"><s>$900.000</s> $550.000</span>
           </div>
           <div class="prod-tier">
-            <span class="prod-tier-label">Equipos complejos </span>
+            <span class="prod-tier-label">Equipos complejos</span>
             <span class="prod-tier-price">Cotización personalizada</span>
           </div>
         </div>
