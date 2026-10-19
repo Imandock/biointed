@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BioInted desarrolla proyectos y soluciones de ingeniería biomédica, consultoría, cumplimiento, tecnología, instrumental y software para organizaciones de salud humana y veterinaria en Colombia.">
+<title>BioInted — Ingeniería biomédica, tecnología y cumplimiento</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#081F35;--navy2:#0D2F4D;--blue:#1455A0;--blue2:#2873B9;--petrol:#123D4A;
+  --green:#1FA68D;--green2:#5AC7AE;--mint:#DFF5EF;--ink:#172534;--muted:#677786;
+  --paper:#FFFFFF;--mist:#EAF0F3;--warm:#F0EFEA;--line:rgba(8,31,53,.10);
+  --shadow:0 28px 90px rgba(6,28,48,.12);--shadow2:0 14px 40px rgba(6,28,48,.08);
+  --sidebar:66px;--ticker:38px;--nav:70px;--ease:cubic-bezier(.2,.7,.2,1)
+}
+*{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased} a{text-decoration:none;color:inherit} img{max-width:100%;display:block} button,input,textarea,select{font:inherit} ::selection{background:rgba(31,166,141,.18)}
+
+/* ======================== TICKER — NO NEGOCIABLE ======================== */
+#ticker{height:var(--ticker);position:fixed;inset:0 0 auto 0;z-index:1000;background:#061827;color:#DCE8F1;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+.ticker-track{display:flex;align-items:center;width:max-content;animation:tickerMove 64s linear infinite;will-change:transform}.ticker-group{display:flex;align-items:center;gap:44px;padding-right:44px}.ticker-item{display:flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.03em;white-space:nowrap}.ticker-item b{font-weight:650;color:#6ED8BF}.ticker-dot{width:5px;height:5px;border-radius:50%;background:#6ED8BF;box-shadow:0 0 0 4px rgba(110,216,191,.08)}#ticker:hover .ticker-track{animation-play-state:paused}@keyframes tickerMove{to{transform:translateX(-50%)}}
+
+/* ======================== SIDEBAR / NAV ======================== */
+#sidebar{position:fixed;left:0;top:var(--ticker);bottom:0;width:var(--sidebar);z-index:650;background:rgba(255,255,255,.965);backdrop-filter:blur(18px);border-right:1px solid var(--line);display:flex;flex-direction:column;transition:width .35s var(--ease),box-shadow .35s var(--ease);overflow:hidden}#sidebar:hover,#sidebar.open{width:248px;box-shadow:14px 0 50px rgba(4,28,48,.08)}
+.sb-logo{height:86px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line);overflow:hidden}.sb-mark{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:left;flex:0 0 38px}.sb-word{font:700 18px 'Manrope',sans-serif;color:var(--blue);white-space:nowrap;opacity:0;transition:.2s}.sb-word span{color:var(--green)}#sidebar:hover .sb-word,#sidebar.open .sb-word{opacity:1}.sbnav{padding:18px 8px;display:flex;flex-direction:column;gap:5px;flex:1}.sbnav a{height:46px;border-radius:13px;display:flex;align-items:center;gap:15px;padding:0 14px;white-space:nowrap;color:#687987;transition:.22s}.sbnav a:hover,.sbnav a.active{background:#EFF5F8;color:var(--blue)}.ico{width:22px;flex:0 0 22px;text-align:center;font-size:14px}.lbl{font-size:13px;font-weight:600;opacity:0;transition:.2s}#sidebar:hover .lbl,#sidebar.open .lbl{opacity:1}.sb-foot{padding:17px 16px;border-top:1px solid var(--line);font-size:10.5px;color:#8A99A5;white-space:nowrap}
+#mobile-menu{display:none;position:fixed;top:calc(var(--ticker) + 14px);left:14px;z-index:1200;width:42px;height:42px;border:0;border-radius:12px;background:var(--navy);color:#fff;box-shadow:var(--shadow2);cursor:pointer}
+#shell{margin-left:var(--sidebar);padding-top:var(--ticker)}
+#nav{height:var(--nav);position:fixed;top:var(--ticker);left:var(--sidebar);right:0;z-index:600;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(8,31,53,.07);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(24px,4vw,64px)}.nav-note{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}.nav-actions{display:flex;align-items:center;gap:18px}.phone{font-size:13px;color:#60717F}.phone b{color:var(--navy)}
+.pill{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 20px;font-size:13px;font-weight:650;transition:.25s var(--ease)}.pill.dark{background:var(--navy);color:#fff}.pill.dark:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(8,31,53,.18)}.pill.outline{border:1px solid rgba(8,31,53,.14);color:var(--navy);background:#fff}.pill.outline:hover{background:var(--mist)}
+section{scroll-margin-top:calc(var(--ticker) + var(--nav));position:relative}.wrap{width:min(1220px,calc(100% - 48px));margin:auto}.eyebrow{display:flex;align-items:center;gap:12px;color:var(--green);font-size:10.5px;font-weight:750;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:'';width:32px;height:1px;background:currentColor}.h2{font-family:'Manrope',sans-serif;font-weight:500;letter-spacing:-.045em;color:var(--navy);font-size:clamp(39px,5vw,64px);line-height:1.02;margin-top:16px}.h2 strong{font-weight:750}.lead{font-size:17px;line-height:1.8;color:var(--muted);max-width:740px}.smallcaps{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;font-weight:750;color:#8A99A5}.reveal{opacity:1;transform:none}.js .reveal{opacity:0;transform:translateY(20px);transition:.75s var(--ease)}.js .reveal.in{opacity:1;transform:none}
+
+/* ======================== HERO ======================== */
+#inicio{min-height:760px;padding:calc(var(--nav) + 66px) 0 64px;background:radial-gradient(circle at 82% 12%,rgba(31,166,141,.11),transparent 28%),linear-gradient(180deg,#FBFDFE 0%,#FFF 84%);overflow:hidden}.hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:74px;align-items:center}.hero-copy{position:relative;z-index:4}.hero-logo{width:min(430px,80%);margin-bottom:42px}.hero-title{font-family:'Manrope',sans-serif;font-size:clamp(52px,6.5vw,86px);line-height:.95;letter-spacing:-.058em;font-weight:500;color:var(--navy)}.hero-title span{display:block;color:var(--green);font-weight:760}.hero-sub{max-width:660px;margin-top:28px;font-size:18px;line-height:1.76;color:#5E7182}.hero-sub b{color:var(--navy);font-weight:650}.hero-actions{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}.hero-proof{display:flex;gap:30px;margin-top:52px;padding-top:25px;border-top:1px solid var(--line)}.hero-proof div{max-width:180px}.hero-proof b{display:block;color:var(--navy);font:700 15px 'Manrope';margin-bottom:6px}.hero-proof span{font-size:11.5px;line-height:1.5;color:#81909D}
+.hero-visual{position:relative;min-height:595px}.hero-frame{position:absolute;inset:0 0 36px 42px;border-radius:38px;overflow:hidden;box-shadow:var(--shadow);background:#DCE8EE}.hero-frame img{width:100%;height:100%;object-fit:cover}.hero-frame:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,28,47,.02) 28%,rgba(5,28,47,.45) 100%)}.hero-spec{position:absolute;right:24px;top:24px;z-index:3;width:210px;padding:14px 16px;border:1px solid rgba(255,255,255,.28);border-radius:16px;background:rgba(6,26,43,.32);backdrop-filter:blur(14px);color:#fff}.hero-spec span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}.hero-spec b{display:block;margin-top:6px;font:650 13px 'Manrope'}.float-card{position:absolute;left:0;bottom:0;width:270px;background:rgba(255,255,255,.965);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.6);border-radius:24px;padding:22px 23px;box-shadow:var(--shadow2);z-index:4}.float-card .kicker{font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--green);font-weight:750}.float-card h3{font:750 20px 'Manrope',sans-serif;color:var(--navy);margin:8px 0}.float-card p{font-size:12.5px;line-height:1.58;color:#71808E}.hero-line{position:absolute;right:-120px;bottom:86px;width:290px;height:290px;border:1px solid rgba(31,166,141,.15);border-radius:50%;z-index:0}.hero-line:before,.hero-line:after{content:'';position:absolute;border-radius:50%;inset:34px;border:1px solid rgba(20,85,160,.12)}.hero-line:after{inset:74px}
+
+/* ======================== PROJECTS / SOLUTIONS — EDITORIAL ======================== */
+#soluciones{padding:94px 0 100px;background:#fff}.editorial-head{display:grid;grid-template-columns:1.02fr .98fr;gap:90px;align-items:end;margin-bottom:46px}.solution-mosaic{display:grid;grid-template-columns:1.18fr .82fr;grid-template-rows:auto auto;gap:18px}.solution-feature{grid-row:1 / span 2;position:relative;min-height:535px;border-radius:30px;overflow:hidden;background:var(--navy);color:#fff;padding:42px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow2)}.solution-feature:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,31,53,.18),rgba(8,31,53,.90)),url('assets/img/srv-ingenieria.jpg') center/cover no-repeat;transform:scale(1.02)}.solution-feature>*{position:relative;z-index:2}.solution-feature .tag{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#80DEC8;font-weight:750}.solution-feature h3{font:600 clamp(31px,4vw,48px) 'Manrope';line-height:1.05;letter-spacing:-.035em;margin:14px 0 18px}.solution-feature p{max-width:620px;font-size:14px;line-height:1.75;color:#D4DFE6}.solution-feature .mini-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:28px}.mini-flow span{padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:12px;font-size:11px;color:#DDE8EE;background:rgba(255,255,255,.04)}
+.solution-side{border:1px solid var(--line);border-radius:28px;padding:32px;background:linear-gradient(180deg,#FFF,#FAFCFD);transition:.3s var(--ease);position:relative;overflow:hidden}.solution-side:hover{transform:translateY(-5px);box-shadow:var(--shadow2)}.solution-side .num{font:800 38px 'Manrope';letter-spacing:-.06em;color:rgba(20,85,160,.14);position:absolute;right:24px;top:20px}.solution-side h3{font:720 22px 'Manrope';color:var(--navy);margin:22px 0 11px}.solution-side p{font-size:13.5px;line-height:1.7;color:#71808E}.solution-side .linkish{display:inline-flex;gap:8px;align-items:center;margin-top:20px;font-size:12px;font-weight:700;color:var(--blue)}
+.capability-strip{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff}.capability-strip div{padding:18px 20px;border-right:1px solid var(--line)}.capability-strip div:last-child{border-right:0}.capability-strip b{display:block;font-size:12px;color:var(--navy);margin-bottom:5px}.capability-strip span{font-size:11px;color:#81909C}
+
+/* ======================== HUMAN ======================== */
+#humano{padding:96px 0;background:var(--mist)}.split-head{display:grid;grid-template-columns:1.05fr .95fr;gap:82px;align-items:end;margin-bottom:42px}.human-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.human-photo{min-height:590px;border-radius:30px;overflow:hidden;position:relative;box-shadow:var(--shadow2)}.human-photo img{width:100%;height:100%;object-fit:cover}.human-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,31,53,.62))}.human-photo-note{position:absolute;left:28px;right:28px;bottom:28px;z-index:2;color:#fff}.human-photo-note span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8DE0CC;font-weight:750}.human-photo-note h3{font:650 27px 'Manrope';margin-top:8px}.human-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}.human-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:27px;min-height:276px;transition:.3s var(--ease)}.human-card:hover{transform:translateY(-4px);box-shadow:var(--shadow2)}.human-card .micro{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:750}.human-card h3{font:700 20px 'Manrope';color:var(--navy);margin:16px 0 11px}.human-card p{font-size:13px;line-height:1.68;color:#73828F}.human-card ul{list-style:none;margin-top:16px;display:grid;gap:8px}.human-card li{font-size:11.5px;color:#657684;padding-left:15px;position:relative}.human-card li:before{content:'·';position:absolute;left:0;color:var(--green);font-weight:800}
+
+/* ======================== SIGNATURE SOLUTIONS ======================== */
+#destacados{padding:96px 0;background:linear-gradient(135deg,#071C2F 0%,#0A2C47 62%,#0D3D4D 100%);color:#fff;overflow:hidden}.signature-head{display:grid;grid-template-columns:1fr .78fr;gap:80px;align-items:end;margin-bottom:46px}.signature-head .h2{color:#fff}.signature-head .lead{color:#C4D1DA}.signature-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.signature-card{position:relative;border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:34px;background:rgba(255,255,255,.045);backdrop-filter:blur(8px);overflow:hidden}.signature-card:before{content:'';position:absolute;right:-60px;top:-60px;width:180px;height:180px;border:1px solid rgba(108,218,192,.12);border-radius:50%}.signature-card .number{font:800 52px 'Manrope';letter-spacing:-.06em;color:rgba(255,255,255,.10)}.signature-card h3{font:720 27px 'Manrope';margin-top:-8px}.signature-card p{margin-top:12px;font-size:13.5px;line-height:1.75;color:#C6D2DA;max-width:560px}.deliverables{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:22px}.deliverables span{padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.05);font-size:11px;color:#D8E3E9;border:1px solid rgba(255,255,255,.07)}
+
+/* ======================== PROCESS ======================== */
+#metodo{padding:94px 0;background:#fff}.method-head{display:grid;grid-template-columns:1fr .95fr;gap:90px;align-items:end;margin-bottom:44px}.process{display:grid;grid-template-columns:repeat(5,1fr);position:relative}.process:before{content:'';position:absolute;left:8%;right:8%;top:28px;height:1px;background:linear-gradient(90deg,rgba(31,166,141,.15),rgba(20,85,160,.22),rgba(31,166,141,.15))}.process-step{position:relative;padding:0 16px}.process-dot{width:56px;height:56px;border-radius:50%;border:1px solid rgba(20,85,160,.16);background:#fff;box-shadow:0 8px 24px rgba(8,31,53,.06);display:flex;align-items:center;justify-content:center;font:750 13px 'Manrope';color:var(--blue);position:relative;z-index:2}.process-step h3{font:700 16px 'Manrope';color:var(--navy);margin:20px 0 8px}.process-step p{font-size:12px;line-height:1.62;color:#748493}
+
+/* ======================== SOFTWARE ======================== */
+#software{padding:98px 0;background:var(--warm)}.software-intro{display:grid;grid-template-columns:.82fr 1.18fr;gap:75px;align-items:center}.software-copy .lead{margin-top:22px}.soft-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}.soft-badges span{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11px;color:#5E7180}.software-stage{position:relative;min-height:560px}.screen-main,.screen-small{position:absolute;border-radius:20px;overflow:hidden;background:#0D263A;border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 70px rgba(7,26,43,.18)}.screen-main{left:0;right:64px;top:0;height:405px;z-index:2}.screen-small.one{right:0;bottom:10px;width:48%;height:235px;z-index:3}.screen-small.two{left:32px;bottom:0;width:43%;height:205px;z-index:4}.screen-bar{height:32px;background:#102D44;display:flex;align-items:center;gap:6px;padding:0 12px}.screen-bar i{width:7px;height:7px;border-radius:50%;background:#6B8192}.screen-body{height:calc(100% - 32px);background:linear-gradient(135deg,#EAF1F5,#FFF);display:flex;align-items:center;justify-content:center;position:relative}.screen-body img{width:100%;height:100%;object-fit:contain;background:#F6F8FA}.screen-placeholder{text-align:center;font-size:11px;letter-spacing:.09em;color:#7C8E9B;line-height:1.7}.screen-placeholder b{display:block;color:var(--navy);font:700 16px 'Manrope';letter-spacing:0;margin-bottom:5px}.software-brand{display:flex;align-items:center;gap:18px;margin-bottom:26px}.software-brand-logo{width:104px;height:104px;flex:0 0 104px;border:1px solid rgba(8,31,53,.10);border-radius:22px;display:flex;align-items:center;justify-content:center;background:#fff;padding:8px;box-shadow:0 10px 28px rgba(8,31,53,.07);overflow:hidden}.software-brand-logo img{width:100%;height:100%;object-fit:contain}.software-brand-text b{display:block;font:700 18px 'Manrope';color:var(--navy)}.software-brand-text span{font-size:11px;color:#7A8A96}
+
+/* ======================== VETERINARY ======================== */
+#veterinaria{padding:98px 0;background:linear-gradient(135deg,#0D3B35,#124C43 68%,#143F45);color:#fff;overflow:hidden}.vet-head{display:grid;grid-template-columns:1fr .92fr;gap:80px;align-items:end;margin-bottom:48px}.vet-head .h2{color:#fff}.vet-head .lead{color:#C8DAD5}.vet-showcase{display:grid;grid-template-columns:1.06fr .94fr;gap:18px}.vet-image{min-height:520px;border-radius:30px;overflow:hidden;position:relative;background:#173F3A}.vet-image img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}.vet-image:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,40,36,.06),rgba(8,36,33,.78))}.vet-image-copy{position:absolute;left:32px;right:32px;bottom:30px;z-index:2}.vet-image-copy .tag{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#8CE2CB;font-weight:750}.vet-image-copy h3{font:700 29px 'Manrope';margin:10px 0}.vet-image-copy p{font-size:13px;line-height:1.7;color:#D7E5E1;max-width:560px}.vet-stack{display:grid;gap:18px}.vet-card{border:1px solid rgba(255,255,255,.11);border-radius:26px;padding:28px;background:rgba(255,255,255,.05)}.vet-card .num{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#86DEC8;font-weight:750}.vet-card h3{font:700 21px 'Manrope';margin:12px 0 8px}.vet-card p{font-size:12.5px;line-height:1.65;color:#C7D9D4}.vet-card .list{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}.vet-card .list div{padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-size:10.5px;color:#D7E5E1}
+
+/* ======================== EXPERIENCE / INSTITUTIONAL WITHOUT FAKE CLAIMS ======================== */
+#experiencia{padding:94px 0;background:#fff}.experience-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:82px;align-items:start}.experience-copy .lead{margin-top:22px}.cred-panel{border:1px solid var(--line);border-radius:30px;overflow:hidden;background:linear-gradient(180deg,#FCFDFE,#F7FAFB)}.cred-row{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:24px 28px;border-bottom:1px solid var(--line)}.cred-row:last-child{border-bottom:0}.cred-row b{font:700 13px 'Manrope';color:var(--navy)}.cred-row p{font-size:12.5px;line-height:1.65;color:#6E7F8D}.experience-note{margin-top:18px;padding:18px 20px;border-left:3px solid var(--green);background:#F7FBFA;border-radius:0 14px 14px 0;font-size:12px;line-height:1.7;color:#637582}.experience-note strong{color:var(--navy)}
+
+/* ======================== IMPACT ======================== */
+#impacto{padding:76px 0;background:var(--mist)}.impact-card{border-radius:30px;padding:38px 42px;background:#fff;border:1px solid var(--line);display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:center;box-shadow:0 14px 50px rgba(8,31,53,.05)}.impact-mark{font:800 74px 'Manrope';letter-spacing:-.07em;color:rgba(20,85,160,.12)}.impact-card h3{font:700 27px 'Manrope';color:var(--navy);margin:4px 0 12px}.impact-card p{font-size:13.5px;line-height:1.75;color:#6D7E8C}.impact-cta{margin-top:18px;display:inline-flex;gap:8px;align-items:center;color:var(--blue);font-size:12px;font-weight:700}
+
+/* ======================== CONTACT ======================== */
+#contacto{padding:96px 0;background:#fff}.contact-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:74px;align-items:start}.contact-copy .lead{margin-top:20px}.contact-data{margin-top:34px;display:grid;gap:15px}.contact-data div{font-size:13px;color:#6D7E8C}.contact-data b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:#8B9AA6;margin-bottom:4px}.contact-data a{color:var(--navy);font-weight:650}.form{background:linear-gradient(180deg,#FBFDFE,#F6F9FB);border:1px solid var(--line);border-radius:30px;padding:32px}.form h3{font:700 23px 'Manrope';color:var(--navy);margin-bottom:24px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;color:#7C8C99;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid rgba(8,31,53,.11);background:#fff;border-radius:13px;padding:13px 14px;color:var(--ink);outline:none;transition:.2s}.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(31,166,141,.6);box-shadow:0 0 0 4px rgba(31,166,141,.07)}.submit{margin-top:18px;width:100%;border:0;border-radius:14px;padding:14px 18px;background:var(--navy);color:#fff;font-weight:700;cursor:pointer;transition:.2s}.submit:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(8,31,53,.16)}
+
+/* ======================== FOOTER ======================== */
+footer{background:#061827;color:#C9D5DD;padding:64px 0 30px}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;gap:50px}.footer-logo{width:220px;background:#fff;border-radius:14px;padding:8px 10px}.footer-desc{font-size:12px;line-height:1.7;color:#95A7B4;margin-top:18px;max-width:420px}.footer-col h4{font:700 12px 'Manrope';color:#fff;margin-bottom:14px}.footer-col a,.footer-col span{display:block;font-size:11.5px;color:#93A7B5;margin:9px 0}.footer-col a:hover{color:#fff}.copyright{display:flex;justify-content:space-between;gap:20px;margin-top:46px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);font-size:10.5px;color:#738997}
+#whatsapp{position:fixed;right:24px;bottom:24px;z-index:700;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#1FA68D;color:#fff;font-size:22px;box-shadow:0 12px 32px rgba(31,166,141,.28)}
+
+@media(max-width:1050px){
+  .hero-grid,.editorial-head,.split-head,.signature-head,.method-head,.software-intro,.vet-head,.experience-grid,.contact-grid{grid-template-columns:1fr;gap:38px}.hero-visual{min-height:520px}.solution-mosaic{grid-template-columns:1fr}.solution-feature{grid-row:auto;min-height:470px}.human-layout{grid-template-columns:1fr}.human-photo{min-height:460px}.process{grid-template-columns:repeat(2,1fr);gap:30px}.process:before{display:none}.software-stage{min-height:520px}.vet-showcase{grid-template-columns:1fr}.impact-card{grid-template-columns:1fr;gap:18px}.footer-grid{grid-template-columns:1.3fr 1fr 1fr}.footer-grid>div:last-child{display:none}}
+@media(max-width:760px){
+  .pill{padding:11px 15px;font-size:12px}.hero-title{font-size:clamp(44px,13vw,66px)}.h2{font-size:clamp(34px,10vw,50px)}
+  :root{--sidebar:0px}.wrap{width:min(100% - 30px,1220px)}#sidebar{width:0;top:var(--ticker)}#sidebar.open{width:248px}#mobile-menu{display:block}#nav{left:0;padding-left:68px}.nav-note,.phone{display:none}.nav-actions{margin-left:auto}#shell{margin-left:0}.hero-grid{gap:42px}#inicio{padding-top:calc(var(--nav) + 52px)}.hero-logo{width:84%;margin-bottom:28px}.hero-visual{min-height:450px}.hero-frame{left:18px;border-radius:26px}.hero-spec{display:none}.float-card{width:220px}.hero-proof{display:grid;grid-template-columns:1fr 1fr;gap:16px}.solution-feature{padding:30px}.solution-feature .mini-flow{grid-template-columns:1fr 1fr}.capability-strip{grid-template-columns:1fr 1fr}.capability-strip div:nth-child(2){border-right:0}.capability-strip div:nth-child(-n+2){border-bottom:1px solid var(--line)}.human-cards,.signature-grid{grid-template-columns:1fr}.process{grid-template-columns:1fr}.software-stage{min-height:450px}.screen-main{right:20px;height:330px}.screen-small.one{width:56%;height:190px}.screen-small.two{width:52%;height:175px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.cred-row{grid-template-columns:1fr;gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.copyright{flex-direction:column}.nav-actions .pill.outline{display:none}}
+@media(max-width:430px){#soluciones,#humano,#destacados,#metodo,#software,#veterinaria,#experiencia,#contacto{padding-top:72px;padding-bottom:72px}#impacto{padding-top:58px;padding-bottom:58px}#nav{padding-right:12px}.nav-actions .pill.dark{padding:10px 13px;font-size:11.5px}.hero-proof{grid-template-columns:1fr}.hero-frame{inset:0 0 28px 0}.float-card{left:10px;bottom:0;width:calc(100% - 20px)}.capability-strip{grid-template-columns:1fr}.capability-strip div{border-right:0!important;border-bottom:1px solid var(--line)}.capability-strip div:last-child{border-bottom:0}.software-stage{min-height:390px}.screen-main{left:0;right:0;height:270px}.screen-small.one{width:62%;height:145px}.screen-small.two{width:58%;height:135px}.footer-grid{grid-template-columns:1fr}.footer-grid>div:first-child{grid-column:auto}.impact-card{padding:28px 24px}}
+</style>
+</head>
+<body>
+<div id="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+<button id="mobile-menu" onclick="toggleMenu()" aria-label="Abrir navegación">☰</button>
+<aside id="sidebar">
+  <div class="sb-logo"><img src="assets/img/logo-biointed.png" class="sb-mark" alt="BioInted"><div class="sb-word">Bio<span>Inted</span></div></div>
+  <nav class="sbnav">
+    <a href="#inicio" class="active"><span class="ico">⌂</span><span class="lbl">Inicio</span></a>
+    <a href="#soluciones"><span class="ico">◇</span><span class="lbl">Proyectos y soluciones</span></a>
+    <a href="#humano"><span class="ico">✚</span><span class="lbl">Salud humana</span></a>
+    <a href="#metodo"><span class="ico">↗</span><span class="lbl">Cómo trabajamos</span></a>
+    <a href="#software"><span class="ico">▣</span><span class="lbl">Software</span></a>
+    <a href="#veterinaria"><span class="ico">◌</span><span class="lbl">Veterinaria</span></a>
+    <a href="#experiencia"><span class="ico">◎</span><span class="lbl">BioInted</span></a>
+    <a href="#contacto"><span class="ico">✉</span><span class="lbl">Contacto</span></a>
+  </nav>
+  <div class="sb-foot">Medical Intellect Technology</div>
+</aside>
+
+<div id="shell">
+  <header id="nav">
+    <div class="nav-note">Ingeniería biomédica · tecnología · cumplimiento</div>
+    <div class="nav-actions"><span class="phone">Asesoría <b>+57 317 140 9069</b></span><a class="pill dark" href="#contacto">Conversemos</a></div>
+  </header>
+
+  <main>
+    <section id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <img src="assets/img/logo-biointed.png" class="hero-logo" alt="BioInted — Medical Intellect Technology">
+          <div class="eyebrow">Proyectos biomédicos con visión integral</div>
+          <h1 class="hero-title">Ingeniería que ordena.<span>Tecnología que respalda.</span></h1>
+          <p class="hero-sub">En BioInted conectamos <b>ingeniería biomédica, cumplimiento, tecnología y acompañamiento</b> para construir soluciones coherentes con la realidad de cada institución de salud.</p>
+          <div class="hero-actions"><a class="pill dark" href="#soluciones">Explorar proyectos y soluciones</a><a class="pill outline" href="#contacto">Hablar con BioInted</a></div>
+          <div class="hero-proof">
+            <div><b>Visión integral</b><span>Una misma conversación para conectar lo técnico, operativo y documental.</span></div>
+            <div><b>Salud humana</b><span>Nuestra línea principal de consultoría, ingeniería y acompañamiento.</span></div>
+            <div><b>Veterinaria</b><span>Aplicación especializada de nuestras capacidades en otro entorno clínico.</span></div>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="hero-line"></div>
+          <div class="hero-frame"><img src="assets/img/hero.jpg" alt="Tecnología e ingeniería biomédica"><div class="hero-spec"><span>BioInted</span><b>Medical Intellect Technology</b></div></div>
+          <div class="float-card"><div class="kicker">Una relación, múltiples capacidades</div><h3>De la necesidad a la implementación.</h3><p>Evaluamos, diseñamos, acompañamos y damos continuidad a cada proyecto con criterio técnico.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="soluciones">
+      <div class="wrap">
+        <div class="editorial-head"><div><div class="eyebrow reveal">Proyectos y soluciones</div><h2 class="h2 reveal">Capacidades que se conectan.<br><strong>Soluciones que tienen sentido.</strong></h2></div><p class="lead reveal">No entendemos el portafolio como una lista de servicios aislados. Lo organizamos como capacidades que pueden combinarse según el contexto clínico, técnico y regulatorio de cada proyecto.</p></div>
+        <div class="solution-mosaic">
+          <article class="solution-feature reveal"><div class="tag">Capacidad central</div><h3>Ingeniería y gestión biomédica integral</h3><p>Desde el análisis inicial hasta el acompañamiento posterior, articulamos decisiones técnicas, documentación, equipos, cumplimiento y operación para reducir improvisaciones y construir soluciones sostenibles.</p><div class="mini-flow"><span>Diagnóstico</span><span>Planeación</span><span>Implementación</span><span>Acompañamiento</span></div></article>
+          <article class="solution-side reveal"><div class="num">02</div><div class="smallcaps">Consultoría & cumplimiento</div><h3>Decisiones técnicas con soporte documental.</h3><p>HTA consultivo, habilitación, auditorías internas, Pack de Blindaje y asesoría para adecuación de servicios radiológicos.</p><a class="linkish" href="#humano">Ver aplicación en salud humana →</a></article>
+          <article class="solution-side reveal"><div class="num">03</div><div class="smallcaps">Tecnología & equipamiento</div><h3>Herramientas que responden al contexto.</h3><p>Software, instrumental y equipos seleccionados desde la necesidad real, no desde un catálogo genérico.</p><a class="linkish" href="#software">Explorar tecnología →</a></article>
+        </div>
+        <div class="capability-strip reveal"><div><b>Gestión biomédica</b><span>Organización y acompañamiento integral</span></div><div><b>Consultoría</b><span>HTA, cumplimiento y adecuaciones</span></div><div><b>Software</b><span>Soluciones digitales para el flujo clínico</span></div><div><b>Equipamiento</b><span>Instrumental y dotación seleccionada</span></div></div>
+      </div>
+    </section>
+
+    <section id="humano">
+      <div class="wrap">
+        <div class="split-head"><div><div class="eyebrow reveal">Salud humana</div><h2 class="h2 reveal">Una línea profesional con<br><strong>profundidad técnica.</strong></h2></div><p class="lead reveal">BioInted acompaña consultorios, instituciones y servicios especializados en decisiones donde ingeniería, normatividad, documentación y tecnología deben conversar entre sí.</p></div>
+        <div class="human-layout">
+          <div class="human-photo reveal"><img src="assets/img/quien-consultorio.jpg" alt="Entorno clínico e ingeniería biomédica"><div class="human-photo-note"><span>Salud humana</span><h3>Del cumplimiento documental a la realidad operativa.</h3></div></div>
+          <div class="human-cards">
+            <article class="human-card reveal"><div class="micro">Gestión biomédica</div><h3>Gestión integral</h3><p>Organización técnica y documental para instituciones que buscan mayor control sobre su tecnología biomédica.</p><ul><li>Inventario y trazabilidad</li><li>Mantenimiento y seguimiento</li><li>Acompañamiento técnico</li><li>Soporte documental</li></ul></article>
+            <article class="human-card reveal"><div class="micro">Consultoría especializada</div><h3>HTA & adquisición</h3><p>Evaluación de necesidades, comparación técnica y acompañamiento para compras mejor fundamentadas.</p><ul><li>Definición de necesidad</li><li>Criterios técnicos</li><li>Evaluación comparativa</li><li>Acompañamiento en adquisición</li></ul></article>
+            <article class="human-card reveal"><div class="micro">Cumplimiento</div><h3>Blindaje documental</h3><p>Organización y fortalecimiento de documentación asociada a la gestión biomédica y preparación institucional.</p><ul><li>Pack de Blindaje</li><li>Auditorías internas</li><li>Habilitación</li><li>Preparación documental</li></ul></article>
+            <article class="human-card reveal"><div class="micro">Infraestructura clínica</div><h3>Adecuaciones radiológicas</h3><p>Asesoría técnica para planear adecuaciones de espacios destinados a servicios radiológicos.</p><ul><li>Distribución e infraestructura</li><li>Condiciones técnicas</li><li>Criterios normativos</li><li>Acompañamiento de implementación</li></ul></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="destacados">
+      <div class="wrap">
+        <div class="signature-head"><div><div class="eyebrow reveal" style="color:#76D9C2">Soluciones especializadas</div><h2 class="h2 reveal">Herramientas propias para<br><strong>decisiones complejas.</strong></h2></div><p class="lead reveal">Dos soluciones que condensan nuestra forma de trabajar: entender el problema, estructurar la información y acompañar la decisión.</p></div>
+        <div class="signature-grid">
+          <article class="signature-card reveal"><div class="number">01</div><h3>Pack de Blindaje Técnico</h3><p>Una estructura de soporte documental y organización técnica para fortalecer la gestión biomédica y prepararse mejor ante procesos de verificación, habilitación o auditoría.</p><div class="deliverables"><span>Organización documental</span><span>Revisión de consistencia</span><span>Identificación de brechas</span><span>Plan de fortalecimiento</span></div></article>
+          <article class="signature-card reveal"><div class="number">02</div><h3>HTA Consultivo</h3><p>Un proceso de evaluación para transformar una intención de compra en una decisión técnica más clara, contextualizada y defendible.</p><div class="deliverables"><span>Necesidad clínica</span><span>Criterios técnicos</span><span>Comparación de alternativas</span><span>Recomendación contextual</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo">
+      <div class="wrap">
+        <div class="method-head"><div><div class="eyebrow reveal">Cómo trabajamos</div><h2 class="h2 reveal">Un método claro para<br><strong>proyectos que no admiten improvisación.</strong></h2></div><p class="lead reveal">La confianza no depende de promesas grandilocuentes. Se construye con una forma de trabajo ordenada, trazable y comprensible para el cliente.</p></div>
+        <div class="process">
+          <div class="process-step reveal"><div class="process-dot">01</div><h3>Entender</h3><p>Escuchamos el contexto clínico, operativo y técnico antes de proponer.</p></div>
+          <div class="process-step reveal"><div class="process-dot">02</div><h3>Evaluar</h3><p>Revisamos necesidades, restricciones, documentación y condiciones reales.</p></div>
+          <div class="process-step reveal"><div class="process-dot">03</div><h3>Diseñar</h3><p>Construimos una solución proporcional al problema y al nivel de madurez institucional.</p></div>
+          <div class="process-step reveal"><div class="process-dot">04</div><h3>Implementar</h3><p>Acompañamos la puesta en marcha con criterio técnico y orden documental.</p></div>
+          <div class="process-step reveal"><div class="process-dot">05</div><h3>Acompañar</h3><p>Damos continuidad cuando el proyecto requiere seguimiento, soporte o evolución.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="software">
+      <div class="wrap software-intro">
+        <div class="software-copy">
+          <div class="eyebrow reveal">Tecnología & software</div>
+          <h2 class="h2 reveal">Software que se integra<br><strong>al flujo clínico.</strong></h2>
+          <p class="lead reveal">Chipmunks MiniPACS amplía la capacidad de BioInted hacia soluciones digitales para organizar, visualizar, reportar y compartir estudios de imagen.</p>
+          <div class="software-brand reveal"><div class="software-brand-logo"><img src="assets/img/minipacs-logo.png" alt="Chipmunks MiniPACS"></div><div class="software-brand-text"><b>Chipmunks MiniPACS</b><span>Gestión local de estudios e imágenes</span></div></div>
+          <div class="soft-badges reveal"><span>Centralización de estudios</span><span>Visualización</span><span>Reporte PDF</span><span>Envío por correo</span><span>Respaldo local</span></div>
+        </div>
+        <div class="software-stage reveal">
+          <div class="screen-main"><div class="screen-bar"><i></i><i></i><i></i></div><div class="screen-body"><div class="screen-placeholder" id="s1f"><b>Pantallazo principal</b>assets/img/minipacs-01.png</div><img src="assets/img/minipacs-01.png" alt="Interfaz MiniPACS principal" onload="document.getElementById('s1f').style.display='none'" onerror="this.style.display='none'"></div></div>
+          <div class="screen-small one"><div class="screen-bar"><i></i><i></i><i></i></div><div class="screen-body"><div class="screen-placeholder" id="s2f"><b>Vista secundaria</b>assets/img/minipacs-02.png</div><img src="assets/img/minipacs-02.png" alt="Interfaz MiniPACS" onload="document.getElementById('s2f').style.display='none'" onerror="this.style.display='none'"></div></div>
+          <div class="screen-small two"><div class="screen-bar"><i></i><i></i><i></i></div><div class="screen-body"><div class="screen-placeholder" id="s3f"><b>Vista secundaria</b>assets/img/minipacs-03.png</div><img src="assets/img/minipacs-03.png" alt="Interfaz MiniPACS" onload="document.getElementById('s3f').style.display='none'" onerror="this.style.display='none'"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="veterinaria">
+      <div class="wrap">
+        <div class="vet-head"><div><div class="eyebrow reveal" style="color:#7BDEC6">Proyectos y soluciones · Veterinaria</div><h2 class="h2 reveal">Mismo rigor técnico.<br><strong>Otro entorno clínico.</strong></h2></div><p class="lead reveal">Veterinaria no se presenta como un anexo. Es una aplicación específica de nuestras capacidades en consultoría, software y equipamiento, adaptadas a clínicas y consultorios veterinarios.</p></div>
+        <div class="vet-showcase">
+          <div class="vet-image reveal"><img src="assets/img/veterinaria-clinica.jpg" alt="Tecnología y equipamiento veterinario"><div class="vet-image-copy"><div class="tag">BioInted Veterinaria</div><h3>Ingeniería, cumplimiento y tecnología para una práctica clínica mejor organizada.</h3><p>Una línea que crece sobre capacidades reales de BioInted, con soluciones ajustadas a necesidades veterinarias.</p></div></div>
+          <div class="vet-stack">
+            <article class="vet-card reveal"><div class="num">01 · SOFTWARE</div><h3>Chipmunks MiniPACS</h3><p>Gestión local de estudios e imágenes para entornos veterinarios.</p><div class="list"><div>Organización</div><div>Visualización</div><div>Reportes</div><div>Respaldo local</div></div></article>
+            <article class="vet-card reveal"><div class="num">02 · CONSULTORÍA</div><h3>Ingeniería & cumplimiento</h3><p>HTA para adquisición de equipos, documentación, inventarios, preparación para visitas y asesoría para adecuación de servicios radiológicos.</p></article>
+            <article class="vet-card reveal"><div class="num">03 · EQUIPAMIENTO</div><h3>Dotación seleccionada</h3><p>Autoclaves, laringoscopios y escalador dental ultrasónico, con posibilidad de acompañamiento técnico en la elección.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experiencia">
+      <div class="wrap experience-grid">
+        <div class="experience-copy"><div class="eyebrow reveal">BioInted</div><h2 class="h2 reveal">Una empresa joven.<br><strong>Un equipo con experiencia real.</strong></h2><p class="lead reveal">BioInted está legalmente constituida y construye su trayectoria institucional con una premisa simple: no atribuirse experiencia que no le pertenece. La experiencia técnica proviene de las personas que integran el equipo y de su recorrido profesional previo.</p><div class="experience-note reveal"><strong>Transparencia institucional:</strong> mientras BioInted consolida su propio historial de proyectos, diferenciamos con claridad la experiencia del equipo de la experiencia contractual de la empresa.</div></div>
+        <div class="cred-panel reveal">
+          <div class="cred-row"><b>Ingeniería biomédica</b><p>Experiencia profesional del equipo en gestión biomédica, soporte técnico, mantenimiento y acompañamiento de tecnologías para salud.</p></div>
+          <div class="cred-row"><b>Entornos clínicos</b><p>Conocimiento aplicado en contextos humanos y veterinarios, incluyendo laboratorio, diagnóstico, imagenología y servicios especializados.</p></div>
+          <div class="cred-row"><b>Cumplimiento</b><p>Trabajo orientado a documentación, tecnovigilancia, habilitación, inventarios y preparación técnica de instituciones.</p></div>
+          <div class="cred-row"><b>Tecnología</b><p>Capacidad para integrar software, equipos, documentación y operación dentro de una misma conversación técnica.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="impacto">
+      <div class="wrap">
+        <div class="impact-card reveal"><div><div class="smallcaps">Compromiso BioInted · 2026</div><div class="impact-mark">10·08</div></div><div><h3>HTA solidario para instituciones afectadas por el terremoto.</h3><p>Como iniciativa de apoyo posterior al terremoto del 10 de agosto de 2026 en el occidente colombiano, BioInted ofrece HTA sin costo a instituciones afectadas que requieran orientación para priorizar o evaluar reposición de tecnología biomédica.</p><a href="#contacto" class="impact-cta">Consultar condiciones del programa →</a></div></div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="wrap contact-grid">
+        <div class="contact-copy"><div class="eyebrow reveal">Contacto</div><h2 class="h2 reveal">Hablemos del siguiente paso<br><strong>con criterio técnico.</strong></h2><p class="lead reveal">Cuéntanos qué estás evaluando, implementando o corrigiendo. Si podemos aportar valor, te ayudaremos a estructurar una ruta clara.</p><div class="contact-data reveal"><div><b>WhatsApp</b><a href="https://wa.me/573171409069" target="_blank">+57 317 140 9069</a></div><div><b>Correo</b><a href="mailto:comercial@biointed.com">comercial@biointed.com</a></div><div><b>Cobertura</b>Colombia</div></div></div>
+        <form class="form reveal" id="contact-form" action="https://formspree.io/f/xlgaoqvr" method="POST"><h3>Cuéntanos tu proyecto</h3><div class="form-grid"><div class="field"><label>Nombre</label><input name="nombre" required placeholder="Tu nombre"></div><div class="field"><label>Institución</label><input name="institucion" required placeholder="Nombre de la institución"></div><div class="field"><label>Teléfono</label><input name="telefono" placeholder="+57 ..."></div><div class="field"><label>Correo</label><input type="email" name="email" required placeholder="correo@ejemplo.com"></div><div class="field full"><label>Proyecto o solución de interés</label><select name="servicio" required><option value="">Selecciona una opción</option><option>Gestión biomédica integral</option><option>HTA Consultivo</option><option>Pack de Blindaje Técnico</option><option>Asesoría para adecuación de servicios radiológicos</option><option>Instrumental médico / odontológico</option><option>Chipmunks MiniPACS</option><option>Consultoría veterinaria</option><option>Equipos veterinarios</option><option>Otro</option></select></div><div class="field full"><label>Mensaje</label><textarea name="mensaje" placeholder="Cuéntanos brevemente qué necesitas..."></textarea></div></div><button class="submit" type="submit">Enviar solicitud</button></form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><img src="assets/img/logo-biointed.png" class="footer-logo" alt="BioInted"><p class="footer-desc">Proyectos y soluciones de ingeniería biomédica, consultoría, tecnología, instrumental y software para organizaciones de salud humana y veterinaria.</p></div>
+        <div class="footer-col"><h4>Proyectos y soluciones</h4><a href="#soluciones">Visión integral</a><a href="#humano">Salud humana</a><a href="#destacados">Soluciones especializadas</a><a href="#software">Software</a><a href="#veterinaria">Veterinaria</a></div>
+        <div class="footer-col"><h4>BioInted</h4><a href="#metodo">Cómo trabajamos</a><a href="#experiencia">Nuestra base técnica</a><a href="#impacto">Compromiso</a><a href="#contacto">Contacto</a></div>
+        <div class="footer-col"><h4>Contacto</h4><span>Colombia</span><a href="mailto:comercial@biointed.com">comercial@biointed.com</a><a href="https://wa.me/573171409069" target="_blank">+57 317 140 9069</a></div>
+      </div>
+      <div class="copyright"><span>© 2026 BioInted S.A.S. · Todos los derechos reservados.</span><span>Medical Intellect Technology · Colombia</span></div>
+    </div>
+  </footer>
+</div>
+<a id="whatsapp" href="https://wa.me/573171409069?text=Hola%20BioInted%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" aria-label="WhatsApp">✆</a>
+
+<script>
+/* TICKER EDITABLE — conserva la identidad del sitio. Cambia solo estos mensajes. */
+const TICKER_MESSAGES = [
+  '<b>Pack de Blindaje Técnico</b> · soporte documental y cumplimiento',
+  '<b>HTA Consultivo</b> · decisiones de adquisición con criterio técnico',
+  '<b>Consultoría radiológica</b> · asesoría para adecuación de servicios radiológicos',
+  '<b>Proyectos veterinarios</b> · consultoría, tecnología y equipamiento',
+  '<b>Chipmunks MiniPACS</b> · gestión local de estudios e imágenes',
+  '<b>Programa solidario 2026</b> · HTA para instituciones afectadas por el terremoto del 10 de agosto',
+  'Asesoría comercial · <b>317 140 9069</b>'
+];
+function renderTicker(){const track=document.getElementById('tickerTrack');if(!track)return;const group=()=>`<div class="ticker-group">${TICKER_MESSAGES.map(m=>`<div class="ticker-item"><span class="ticker-dot"></span>${m}</div>`).join('')}</div>`;track.innerHTML=group()+group()} renderTicker();
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
+document.querySelectorAll('.sbnav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('sidebar').classList.remove('open')));
+const revealEls=[...document.querySelectorAll('.reveal')];
+if('IntersectionObserver' in window){
+  const revealObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target)}}),{threshold:.06,rootMargin:'0px 0px -4% 0px'});
+  revealEls.forEach(el=>revealObs.observe(el));
+}else{revealEls.forEach(el=>el.classList.add('in'));}
+const sections=[...document.querySelectorAll('main section[id]')],navLinks=[...document.querySelectorAll('.sbnav a')];
+if('IntersectionObserver' in window){
+  const activeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-35% 0px -55% 0px'});sections.forEach(s=>activeObs.observe(s));
+}
+const form=document.getElementById('contact-form');if(form)form.addEventListener('submit',async e=>{e.preventDefault();const btn=form.querySelector('.submit');const original=btn.textContent;btn.textContent='Enviando...';btn.disabled=true;try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(r.ok){btn.textContent='Solicitud enviada ✓';form.reset()}else{btn.textContent='No se pudo enviar. Intenta de nuevo.'}}catch{btn.textContent='Error de conexión. Escríbenos por WhatsApp.'}setTimeout(()=>{btn.textContent=original;btn.disabled=false},5000)});
+</script>
+</body>
+</html>
